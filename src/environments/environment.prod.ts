@@ -5,7 +5,7 @@ export const environment = {
   headers: {
     'Content-Type': 'application/json',
     // url of app
-    'Access-Control-Allow-Origin': 'http://localhost:4200',
+    'Access-Control-Allow-Origin': 'http://ec2-35-88-77-72.us-west-2.compute.amazonaws.com:80/',
     'Current-User': ''
   },
   withCredentials: true
