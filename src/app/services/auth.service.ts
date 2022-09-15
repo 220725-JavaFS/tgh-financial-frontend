@@ -28,4 +28,6 @@ export class AuthService {
     const payload = {email: email, password: password};
     return this.http.post<any>(`${this.authUrl}/register`, payload, {headers: environment.headers});
   }
+
+  
 }
