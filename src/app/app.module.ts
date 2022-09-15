@@ -10,6 +10,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+// Imported a password reset component
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterComponent,
     AccountComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    //inserted Password reset component
+    PasswordResetComponent 
   ],
   imports: [
     BrowserModule,
