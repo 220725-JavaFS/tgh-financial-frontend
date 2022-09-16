@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { PasswordResetComponent } from '../components/password-reset/password-reset.component';
 import { User } from '../models/user';
 
 @Injectable({
@@ -27,6 +28,11 @@ export class AuthService {
   register(email: string, password: string): Observable<any> {
     const payload = {email: email, password: password};
     return this.http.post<any>(`${this.authUrl}/register`, payload, {headers: environment.headers});
+  }
+
+  resetPassword(password: string): Observable<any> {
+    const payload = {password: password};
+    return this.http.post<any>(`${this.authUrl}/confirm-reset`, payload, {headers: environment.headers});
   }
 
   
