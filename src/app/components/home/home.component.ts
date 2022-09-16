@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit {
   balance: FormControl = new FormControl(['']);
   accountDescription: FormControl = new FormControl(['']);
 
+  isDark: boolean = false;
+
   constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {

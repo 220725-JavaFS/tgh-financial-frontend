@@ -1,1 +1,6 @@
-<router-outlet></router-outlet>
+<app-navbar (changeThemeEvent)="isDark=$event" *ngIf="loggedIn"></app-navbar>
+<div [ngClass]="{'home-wrap': true, 'bg-secondary': isDark}">
+    <div [ngClass]="{'account-wrap': true, 'text-light bg-dark': isDark}">
+        <router-outlet></router-outlet>        
+    </div>
+</div>

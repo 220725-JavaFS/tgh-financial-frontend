@@ -7,3 +7,7 @@
 nav {
     height: 7vh;
 }
+
+.bg-dark :is(a, label) {
+    color:whitesmoke;
+}
