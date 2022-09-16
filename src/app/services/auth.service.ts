@@ -30,10 +30,14 @@ export class AuthService {
     return this.http.post<any>(`${this.authUrl}/register`, payload, {headers: environment.headers});
   }
 
-  resetPassword(password: string): Observable<any> {
-    const payload = {password: password};
-    return this.http.post<any>(`${this.authUrl}/confirm-reset`, payload, {headers: environment.headers});
+  resetPassword(user: User): Observable<any> {
+    const payload = user;
+    return this.http.put<any>(`${this.authUrl}/reset-password`, payload, {headers: environment.headers});
   }
 
+  sendTokenBack(token: string): Observable<any> {
+    const payload = {token: token};
+    return this.http.post<any>(`${this.authUrl}/confirm-reset`, payload, {headers: environment.headers});
+  }
   
 }

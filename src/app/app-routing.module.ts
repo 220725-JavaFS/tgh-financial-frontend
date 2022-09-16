@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'home', component: HomeComponent },
   // Created a new path for the pass-word reset page
-  { path: 'password-reset', component: PasswordResetComponent }
+  { path: 'confirm-reset', component: PasswordResetComponent }
 ];
 
 @NgModule({
