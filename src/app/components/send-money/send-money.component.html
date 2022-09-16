@@ -5,8 +5,6 @@
         <h2 id="balance" [style]="balanceStyle">Balance: ${{balance.value}}
           <br>
         </h2>
-        
-      
           <form class="input-form" *ngIf="createFormOpen">
                 <div class="input-group mb-3">   
                   <select class="form-select" [formControl]="txnType" aria-label="Default select example" style="width: 30px;">
@@ -19,7 +17,7 @@
                 <div class="input-group">
                   <textarea class="form-control" [formControl]="txnDescription" placeholder="Account Description..." aria-label="With textarea"></textarea>
                 </div>
-                <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit" (click)="addTransaction(txnAmount.value, txnDescription.value, txnType.value);">Add</button>
+                <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit" (click)="addTransaction(txnAmount.value, txnDescription.value, txnType.value);">Submit</button>
                 
           </form>
 
