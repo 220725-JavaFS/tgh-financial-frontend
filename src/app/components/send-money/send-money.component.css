@@ -1,0 +1,68 @@
+.home-wrap {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.account-wrap {
+    position: relative;
+    width: 80%;
+    height: 750px;
+    background: white;
+    box-shadow: 0 15px 25px #000;
+    text-align: center;
+    padding-bottom: 10%;
+    padding-top: 3%;
+    margin-top: 3%;
+    overflow-y: scroll;
+}
+
+h2 {
+    padding-top: 5px;
+}
+
+h1 {
+    margin-top: 7%;
+    text-align: right;
+}
+
+.account-card {
+    margin-top: 2%;
+    width: 80%;
+    height: auto;
+    margin-right: auto;
+    margin-left: auto;
+    border-style: inset;
+    border-width: thick;
+    margin-bottom: 25px;
+    text-align: left;
+    padding: 10px;
+    transition: 0.4s ease-out;
+}
+
+.account-card:hover {
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    transform: translate3d(10px,0,0);
+}
+
+h4 {
+    font-size: large;
+    color: #636363;
+}
+
+.input-form {
+    margin-top: 10px;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+#submitButton {
+    margin-top: 10px;
+}
+
+#balance {
+    margin-bottom: 30px;
+    font-size: 4em;
+}
