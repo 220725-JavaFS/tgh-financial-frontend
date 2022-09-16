@@ -20,6 +20,12 @@ export class AuthService {
     return this.http.post<User>(this.authUrl+'/login', payload, {headers: environment.headers, withCredentials: environment.withCredentials});
   }
 
+  forgot(email: string): Observable<User> {
+    const creds = {email: email};
+    const payload = JSON.stringify(creds);
+    return this.http.post<User>(this.authUrl+'/forgot', payload, {headers: environment.headers, withCredentials: environment.withCredentials});
+  }
+
   logout(): void{
     this.http.post(`${this.authUrl}/logout`, null);
   }
