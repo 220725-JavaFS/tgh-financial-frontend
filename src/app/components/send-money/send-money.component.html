@@ -2,12 +2,11 @@
 <div class="home-wrap">
     <div class="account-wrap">
         <h2>Account Details: {{accountName.value}}</h2>
-        <h2 id="balance" [style]="balanceStyle">Balance: ${{balance.value}} 
-        </h2>
-        <br>
-          <button class="btn btn-outline-primary btn-lg" type="submit" *ngIf="!createFormOpen" [routerLink]="['/send-money']">Send Money</button>
+        <h2 id="balance" [style]="balanceStyle">Balance: ${{balance.value}}
           <br>
-        <button class="btn btn-outline-primary btn-lg" *ngIf="!createFormOpen" (click)="openCreateForm();">Add Transaction</button>
+        </h2>
+        
+      
           <form class="input-form" *ngIf="createFormOpen">
                 <div class="input-group mb-3">   
                   <select class="form-select" [formControl]="txnType" aria-label="Default select example" style="width: 30px;">

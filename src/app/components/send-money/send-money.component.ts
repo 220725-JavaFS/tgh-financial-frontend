@@ -1,18 +1,19 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Form, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AccountService } from 'src/app/services/account.service';
+import { HttpClient } from '@angular/common/http';
+import { Form, FormControl } from '@angular/forms';
 import { map, Observable, reduce } from 'rxjs';
 import { Account } from 'src/app/models/account';
 import { Transaction } from 'src/app/models/transaction';
-import { AccountService } from 'src/app/services/account.service';
+
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  selector: 'app-send-money',
+  templateUrl: './send-money.component.html',
+  styleUrls: ['./send-money.component.css']
 })
-export class AccountComponent implements OnInit {
+export class SendMoneyComponent implements OnInit {
 
   txnAmount: FormControl = new FormControl(['']);
   txnDescription: FormControl = new FormControl(['']);
@@ -39,6 +40,7 @@ export class AccountComponent implements OnInit {
   ngOnInit(): void {
     this.getAllTransactions();
     this.getAccount();
+    this.openCreateForm();
   }
 
   addTransaction(amount: number, description: string, type: string) {
