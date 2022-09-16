@@ -1,6 +1,6 @@
-<app-navbar></app-navbar>
-<div class="home-wrap">
-    <div class="account-wrap">
+<app-navbar (modeChangeEvent)="darkMode=$event"></app-navbar>
+<div [ngClass]="{'home-wrap':true, 'bg-secondary':darkMode}">
+    <div [ngClass]="{'account-wrap':true, 'text-light bg-dark':darkMode}">
         <h2>My Bank Account</h2>
         <div class="account-card">
             <h2 *ngIf="accountExists">{{userAccount.name}}</h2>
