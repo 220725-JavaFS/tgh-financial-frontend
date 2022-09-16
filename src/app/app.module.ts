@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 // Imported a password reset component
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { PasswordResetSendEmailComponent } from './components/password-reset-send-email/password-reset-send-email.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,8 @@ import { PasswordResetComponent } from './components/password-reset/password-res
     AccountComponent,
     HomeComponent,
     NavbarComponent,
-    //inserted Password reset component
-    PasswordResetComponent 
+    PasswordResetComponent,
+    PasswordResetSendEmailComponent
   ],
   imports: [
     BrowserModule,
