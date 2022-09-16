@@ -2,6 +2,8 @@
 <div class="home-wrap">
     <div class="account-wrap">
         <h2>Account Details: {{accountName.value}}</h2>
+        <input type="text" placeholder="receiver-email" [formControl]="receiverEmailInfo">
+        <h2>Receiver Details: {{receiverName.value}}</h2>
         <h2 id="balance" [style]="balanceStyle">Balance: ${{balance.value}}
           <br>
         </h2>

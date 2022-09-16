@@ -17,6 +17,7 @@ export class AccountService {
   constructor(private http: HttpClient) {
     this.userId = localStorage.getItem('current-user') || '';
     this.accountId = localStorage.getItem('current-account') || '';
+  
    }
 
    getAccount(): Observable<Account> {
