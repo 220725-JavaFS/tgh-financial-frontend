@@ -7,6 +7,7 @@
         <br>
           <button class="btn btn-outline-primary btn-lg" type="submit" *ngIf="!createFormOpen" [routerLink]="['/send-money']">Send Money</button>
           <br>
+          <br>
         <button class="btn btn-outline-primary btn-lg" *ngIf="!createFormOpen" (click)="openCreateForm();">Add Transaction</button>
           <form class="input-form" *ngIf="createFormOpen">
                 <div class="input-group mb-3">   

@@ -6,6 +6,7 @@ import { Form, FormControl } from '@angular/forms';
 import { map, Observable, reduce } from 'rxjs';
 import { Account } from 'src/app/models/account';
 import { Transaction } from 'src/app/models/transaction';
+import {User} from 'src/app/models/user';
 
 
 @Component({
@@ -24,6 +25,14 @@ export class SendMoneyComponent implements OnInit {
   accountName: FormControl = new FormControl(['']);
   balance: FormControl = new FormControl(['']);
   accountDescription: FormControl = new FormControl(['']);
+
+  receiverEmail:string='';
+  receiverUser!: User;
+  receiverAccount!:Account;
+  receiverName: FormControl = new FormControl(['']);
+  receiverBalance: FormControl = new FormControl(['']);
+  receiverDescription: FormControl = new FormControl(['']);
+  receiverEmailInfo: FormControl = new FormControl(['']);
 
   transactionsExists: boolean = false;
   createFormOpen: boolean = false;
@@ -80,6 +89,30 @@ export class SendMoneyComponent implements OnInit {
       }
     }
     );
+  }
+  
+  sendReceiverMoney(amount:number, description:string, receiverEmail:string){
+    const type: string ='Expense';
+    const txn = new Transaction(0, amount, description, type);
+    this.accountService.createTransaction(this.receiverEmail, txn)
+
+  }
+  getReceiver(){
+    this.accountService.getAccount().subscribe({
+      next: (data)=>{
+        this.receiverAccount=new Account(
+          data.id,
+          data.name,
+          data.balance,
+          data.description,
+          data.creationDate
+        );
+      },
+      error: () => {
+        this.accountMessage = "No matching user was found!"
+      },
+    });
+
   }
 
   getAccount() {
