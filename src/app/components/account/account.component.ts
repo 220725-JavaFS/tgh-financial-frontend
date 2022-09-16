@@ -31,6 +31,8 @@ export class AccountComponent implements OnInit {
 
   transactions: Transaction[] = [];
 
+  allAccounts: Account[] = [];
+
   constructor(private accountService: AccountService) { 
     this.accountId = accountService.accountId;
   }
@@ -81,14 +83,15 @@ export class AccountComponent implements OnInit {
 
   getAccount() {
     this.accountService.getAccount().subscribe({
-      next: (response) => {
-        this.userAccount = new Account(
-          response.id,
-          response.name,
-          response.balance,
-          response.description,
-          response.creationDate
-        );
+      next: (response: Account[]) => {
+        this.allAccounts = response;
+        // this.userAccount = new Account(
+        //   response.id,
+        //   response.name,
+        //   response.balance,
+        //   response.description,
+        //   response.creationDate
+        // );
       },
       error: () => {
         this.accountMessage = "No account was found, please create one!"
