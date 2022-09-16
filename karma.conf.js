@@ -12,6 +12,11 @@ module.exports = function (config) {
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
+
+    mime: {
+      'text/x-typescript':  ['ts']  // `tsx` is optional depending on your environment
+    },
+
     client: {
       jasmine: {
         // you can add configuration options for Jasmine here
