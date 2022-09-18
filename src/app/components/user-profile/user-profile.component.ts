@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserProfile } from 'src/app/models/user-profile';
 import { UserProfileService } from 'src/app/services/user-profile.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,6 +12,7 @@ import { UserProfileService } from 'src/app/services/user-profile.service';
 export class UserProfileComponent implements OnInit {
 
   updateFeedback = '';
+  profileUrl = '';
 
   profile: UserProfile = new UserProfile();
 
@@ -18,10 +20,11 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserProfile();
+    this.profileUrl = environment.url + 'profile/' + localStorage.getItem('current-user');
   }
 
   postUserProfile() {
-    this.userProfileService.postUserProfile(this.profile).subscribe({
+    this.userProfileService.postUserProfile(this.profileUrl, this.profile).subscribe({
       next: (response) => {
         console.log(response);
         this.profile = response;
@@ -34,7 +37,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUserProfile() {
-    this.userProfileService.getUserProfile().subscribe({
+    this.userProfileService.getUserProfile(this.profileUrl).subscribe({
       next: (response) => { 
         this.profile = response;
         console.log(response);
