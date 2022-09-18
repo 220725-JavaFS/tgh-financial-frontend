@@ -10,14 +10,22 @@ import { UserProfile } from '../models/user-profile';
 export class UserProfileService {
 
   profileUrl: string = environment.url+'profile/'+localStorage.getItem('current-user');
+  options = {headers: environment.headers, withCredentials: environment.withCredentials};
 
   constructor(private http: HttpClient) { };
 
   postUserProfile(userProfile: UserProfile): Observable<UserProfile> {
-    return this.http.post<UserProfile>(this.profileUrl, userProfile, {headers: environment.headers, withCredentials: environment.withCredentials});
+    let profileObservable: Observable<UserProfile>;
+    if (userProfile.id) {
+      userProfile.id = undefined;
+      profileObservable = this.http.put<UserProfile>(this.profileUrl, userProfile, this.options);
+    } else {
+      profileObservable = this.http.post<UserProfile>(this.profileUrl, userProfile, this.options);
+    }
+    return profileObservable;
   }
 
   getUserProfile(): Observable<UserProfile> {
-    return this.http.get<UserProfile>(this.profileUrl, {headers: environment.headers, withCredentials: environment.withCredentials});
+    return this.http.get<UserProfile>(this.profileUrl, this.options);
   }
 }

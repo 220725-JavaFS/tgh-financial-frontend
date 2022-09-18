@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { UserProfile } from 'src/app/models/user-profile';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 
@@ -19,7 +20,7 @@ export class UserProfileComponent implements OnInit {
     this.getUserProfile();
   }
 
-  postUserProfile(){
+  postUserProfile() {
     this.userProfileService.postUserProfile(this.profile).subscribe({
       next: (response) => {
         console.log(response);
@@ -32,7 +33,7 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  getUserProfile(){
+  getUserProfile() {
     this.userProfileService.getUserProfile().subscribe({
       next: (response) => { 
         this.profile = response;
