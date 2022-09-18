@@ -9,21 +9,15 @@ import { UserProfile } from '../models/user-profile';
 })
 export class UserProfileService {
 
-  userId: string;
-  profileUrl: string = environment.url+'profile';
-  profileId: string = '';
+  profileUrl: string = environment.url+'profile/'+localStorage.getItem('current-user');
 
-  constructor(private http: HttpClient) {
-    this.userId = localStorage.getItem('current-user') || '';
-    this.profileId = localStorage.getItem('current-account') || '';
-   }
+  constructor(private http: HttpClient) { };
 
-   postUserProfile(userProfile: UserProfile): Observable<UserProfile> {
-    environment.headers['Current-User'] = this.userId;
+  postUserProfile(userProfile: UserProfile): Observable<UserProfile> {
     return this.http.post<UserProfile>(this.profileUrl, userProfile, {headers: environment.headers, withCredentials: environment.withCredentials});
-   }
+  }
 
-   getUserProfile(): Observable<UserProfile> {
-    return this.http.get<UserProfile>(this.profileUrl+`/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
-   }
+  getUserProfile(): Observable<UserProfile> {
+    return this.http.get<UserProfile>(this.profileUrl, {headers: environment.headers, withCredentials: environment.withCredentials});
+  }
 }

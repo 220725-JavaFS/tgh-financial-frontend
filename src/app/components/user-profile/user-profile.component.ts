@@ -9,43 +9,34 @@ import { UserProfileService } from 'src/app/services/user-profile.service';
 })
 export class UserProfileComponent implements OnInit {
 
-  newUserProfile = new UserProfile(0, "", "", "", "", "", "", "");
-  updateFeedback:string ="";
+  updateFeedback = '';
 
+  profile: UserProfile = new UserProfile();
 
-  constructor(private userProfileService:UserProfileService ) { }
+  constructor(private userProfileService:UserProfileService) { }
 
   ngOnInit(): void {
     this.getUserProfile();
   }
 
   postUserProfile(){
-    this.userProfileService.postUserProfile(this.newUserProfile).subscribe({
-      next: () => {
+    this.userProfileService.postUserProfile(this.profile).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.profile = response;
         this.updateFeedback = 'Profile Updated!';
       },
       error: () => {
         this.updateFeedback = 'An error occurred';
-      },
-      complete: () => {
-        this.getUserProfile();
       }
     });
   }
 
   getUserProfile(){
     this.userProfileService.getUserProfile().subscribe({
-      next: (response) => {
-        this.newUserProfile = new UserProfile(
-          response.id,
-          response.firstName,
-          response.lastName,
-          response.streetAddress,
-          response.city,
-          response.state,
-          response.postalCode,
-          response.telephone
-        );
+      next: (response) => { 
+        this.profile = response;
+        console.log(response);
       },
       error: () => {
         this.updateFeedback = "No profile was found, please create one!"

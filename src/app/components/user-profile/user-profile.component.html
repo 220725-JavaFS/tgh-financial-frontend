@@ -16,12 +16,12 @@
                 <div class="row g-3">
                     <div class="col">
                         <input type="text" readonly class="form-control-plaintext" value="First Name:">
-                        <input type="text" [(ngModel)]="this.newUserProfile.firstName" class="form-control" placeholder="{{this.newUserProfile.firstName}}">
+                        <input type="text" [(ngModel)]="profile.firstName" class="form-control" placeholder="{{profile.firstName}}" name="first">
                     </div>
 
                     <div class="col" style="align-items:center !important">
                         <input type="text" readonly class="form-control-plaintext" value="Last Name:">
-                        <input type="text" [(ngModel)]="this.newUserProfile.lastName" class="form-control" placeholder="{{this.newUserProfile.lastName}}">
+                        <input type="text" [(ngModel)]="profile.lastName" class="form-control" placeholder="{{profile.lastName}}" name="last">
                     </div>
                 </div>
 
@@ -31,24 +31,24 @@
                 <div class="row g-3">
                     <div class="col">
                         <input type="text" readonly class="form-control-plaintext" value="Street Address:">
-                        <input type="text" [(ngModel)]="this.newUserProfile.streetAddress" class="form-control" placeholder="{{this.newUserProfile.streetAddress}}">
+                        <input type="text" [(ngModel)]="profile.address" class="form-control" placeholder="{{profile.address}}" name="address">
                     </div>
                 </div>
 
                 <div class="row g-3">
                     <div class="col">
                         <input type="text" readonly class="form-control-plaintext" value="City:">
-                        <input type="text" [(ngModel)]="this.newUserProfile.city" class="form-control" placeholder="{{this.newUserProfile.city}}">
+                        <input type="text" [(ngModel)]="profile.city" class="form-control" placeholder="{{profile.city}}" name="city">
                     </div>
 
                     <div class="col-auto" style="align-items:center !important">
                         <input type="text" readonly class="form-control-plaintext" value="State:">
-                        <input type="text" [(ngModel)]="this.newUserProfile.state" class="form-control" placeholder="{{this.newUserProfile.state}}">
+                        <input type="text" [(ngModel)]="profile.state" class="form-control" placeholder="{{profile.state}}" name="state">
                     </div>
         
                     <div class="col-auto">
                         <input type="text" readonly class="form-control-plaintext" value="Postal Code:">
-                        <input type="text" [(ngModel)]="this.newUserProfile.postalCode" class="form-control" placeholder="{{this.newUserProfile.postalCode}}">
+                        <input type="text" [(ngModel)]="profile.zipCode" class="form-control" placeholder="{{profile.zipCode}}" name="zip">
                     </div>
                 </div>
 
@@ -57,7 +57,7 @@
                 <h6 style="color:rgb(97, 97, 97)">Contact</h6>
                 <div class="col-auto">
                     <input type="text" readonly class="form-control-plaintext" value="Telephone:">
-                    <input type="text" [(ngModel)]="this.newUserProfile.telephone" class="form-control" placeholder="{{this.newUserProfile.telephone}}">
+                    <input type="text" [(ngModel)]="profile.phone" class="form-control" placeholder="{{profile.phone}}" name="phone">
                 </div>
                 <hr>
 
