@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
     this.accountService.getAccount().subscribe({
       next: (response: Account[]) => {
         this.allUserAccounts = response;
+        console.log(response);
 
         // this.userAccount = new Account(
         //   response.id,

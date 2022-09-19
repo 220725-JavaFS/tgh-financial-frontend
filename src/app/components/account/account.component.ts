@@ -40,6 +40,7 @@ export class AccountComponent implements OnInit {
   ngOnInit(): void {
     this.getAllTransactions();
     this.getAccount();
+    console.log(localStorage.length, "LOOK OVER HERE");
   }
 
   addTransaction(amount: number, description: string, type: string) {
@@ -84,6 +85,7 @@ export class AccountComponent implements OnInit {
   getAccount() {
     this.accountService.getAccount().subscribe({
       next: (response: Account[]) => {
+    
         this.allAccounts = response;
         // this.userAccount = new Account(
         //   response.id,
