@@ -83,4 +83,22 @@ describe('AuthService', () => {
     testRequest.flush(expectedData);
   });
 
+  it('#register should return expected data', (done) => {
+    const expectedData: any = new User(0, '', '');
+
+    service.register('','').subscribe(data => {
+      expect(data).toEqual(expectedData);
+      done();
+    })
+    
+    const testRequest = http.expectOne(authUrl+'/register');
+
+    testRequest.flush(expectedData);
+  });
+
+  it('#logout should return nothing', () => {
+    service.logout();
+    http.expectNone(authUrl+'/logout');
+  });
+
 });
