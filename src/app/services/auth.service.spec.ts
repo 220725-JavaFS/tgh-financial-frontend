@@ -28,7 +28,7 @@ describe('AuthService', () => {
   it('#forgot should return expected data', (done) => {
     const expectedData: User = new User(0, '', '');
     
-    service.forgot('').subscribe( data => {
+    service.forgotPassword('').subscribe( data => {
       expect(data).toEqual(expectedData);
       done();
     }) 
