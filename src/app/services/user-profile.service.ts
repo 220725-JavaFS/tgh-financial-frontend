@@ -16,7 +16,7 @@ export class UserProfileService {
   makeRequestObject(profile: UserProfile) {
     return {
         firstName: profile.firstName,
-        lastNamee: profile.lastName,
+        lastName: profile.lastName,
         address: profile.address,
         city: profile.city,
         state: profile.state,
