@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
       complete: () => {
         this.accountMessage = "Account was successfully retrieved from the database."
         this.accountExists = true;
+
         // const num = this.userAccount.balance;
         // this.userAccount.balance = +num.toFixed(2);
         // this.accountName.setValue(this.userAccount.name);
@@ -57,7 +58,17 @@ export class HomeComponent implements OnInit {
   openCreateForm() {
     this.createFormOpen = true;
   }
-
+  //Need to add validation (broken up from upsert method)
+  insertAccount(name: string, balance: number, description: string){
+    this.userAccount = new Account(0, name, balance, description, null);
+    this.accountService.insertAccount(this.userAccount).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.accountService.getAccount();
+      }
+    })
+  }
+  
   attemptUpsertAccount(name: string, balance: number, description: string) {
     if(!this.userAccount) {
       this.userAccount = new Account(0, name, balance, description, null);
@@ -67,7 +78,7 @@ export class HomeComponent implements OnInit {
       this.userAccount.description = description;
     }
 
-    this.accountService.upsertAccount(this.userAccount).subscribe({
+    this.accountService.insertAccount(this.userAccount).subscribe({
       next: (response) => {
         this.userAccount.id = response.id;
         this.userAccount.creationDate = response.creationDate;
@@ -84,5 +95,4 @@ export class HomeComponent implements OnInit {
       }
     })
   }
-
 }
