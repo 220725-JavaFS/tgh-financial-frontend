@@ -2,8 +2,7 @@
 <div class="home-wrap">
     <div class="account-wrap">
         <h2>Account Details: {{accountName.value}}</h2>
-        <h4>Unique ID (for transactions): {{userAccount.id}}</h4>
-        
+        <h4>Unique ID (for transactions): {{userAccount.id}}</h4>        
         
         <h2 id="balance" [style]="balanceStyle">Balance: ${{balance.value}}
           <br>
@@ -17,17 +16,16 @@
                 </div>
                 <div class="input-group">
                   <textarea class="form-control" [formControl]="txnDescription" placeholder="Memo..." aria-label="With textarea"></textarea>
-                </div>
-                <button class="btn btn-outline-secondary btn-lg" type="submit">Cancel</button>
+                </div>                
                 <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit" (click)="sendReceiverMoney(txnAmount.value,txnDescription.value,receiverAccountId.value)">Submit</button>
                 
           </form>
 
           
 
-          <div class="account-card"*ngFor="let txn of transactions">
-            <h2>{{txn.description}}</h2>
-            <h1>{{txn.type}}: ${{txn.amount}}</h1>
+        <div class="account-card" *ngFor="let txn of transactions">
+          <h2>{{txn.description}}</h2>
+          <h1>{{txn.type}}: ${{txn.amount}}</h1>
         </div>
         <!--<p>{{accountMessage}}</p> -->
         

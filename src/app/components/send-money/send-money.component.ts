@@ -25,6 +25,8 @@ export class SendMoneyComponent implements OnInit {
   accountName: FormControl = new FormControl(['']);
   balance: FormControl = new FormControl(['']);
   accountDescription: FormControl = new FormControl(['']);
+  balance2: number = 0;
+
 
   receiverEmail:string='';
   receiverUser!: User;
@@ -95,13 +97,20 @@ export class SendMoneyComponent implements OnInit {
     localStorage.setItem('current-account', ''+this.userAccount.id);
     console.log(this.accountId);
     console.log(receiverId);
-    const type: string ='Expense';
+    const type: string ='Income';
     const txn = new Transaction(0, amount, description, type);
     console.log(txn);
     //this.accountService.createTransaction(this.receiverEmail, txn)
     this.accountService.sendMoneyTransaction(this.accountId, receiverId, txn).subscribe({
       next:()=>{
         console.log("In send money");
+        
+      },
+      complete: () => {
+        this.getAccount();
+        this.getAllTransactions();
+        
+
       }
     });
 
