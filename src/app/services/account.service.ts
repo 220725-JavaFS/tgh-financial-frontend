@@ -20,7 +20,7 @@ export class AccountService {
    }
 
    getAccount(): Observable<Account[]> {
-    return this.http.get<Account[]>(this.accountUrl+`/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
+    return this.http.get<Account[]>(this.accountUrl+ `/user/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
 
    getTransactions(accountId: string): Observable<Transaction[]> {
