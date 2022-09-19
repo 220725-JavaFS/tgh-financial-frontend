@@ -3,24 +3,23 @@
     <div class="account-wrap">
         <h2>Account Details: {{accountName.value}}</h2>
         <h4>Unique ID (for transactions): {{userAccount.id}}</h4>
-        <input type="text" placeholder="receiver-email" [formControl]="receiverEmailInfo">
-        <h2>Receiver Details: {{receiverName.value}}</h2>
+        
+        
         <h2 id="balance" [style]="balanceStyle">Balance: ${{balance.value}}
           <br>
         </h2>
           <form class="input-form" *ngIf="createFormOpen">
                 <div class="input-group mb-3">   
-                  <select class="form-select" [formControl]="txnType" aria-label="Default select example" style="width: 30px;">
-                    <option value="Expense">Expense (-)</option>
-                    <option value="Income">Income (+)</option>
-                  </select>            
+                  <h6>Receiver Details: {{receiverName.value}}</h6>
+                  <input type="text" placeholder="Account Id" [formControl]="receiverAccountId">
                   <span class="input-group-text">$</span>
                   <input type="number" placeholder="Amount" [formControl]="txnAmount" class="form-control" aria-label="Amount (to the nearest dollar)">
                 </div>
                 <div class="input-group">
-                  <textarea class="form-control" [formControl]="txnDescription" placeholder="Account Description..." aria-label="With textarea"></textarea>
+                  <textarea class="form-control" [formControl]="txnDescription" placeholder="Memo..." aria-label="With textarea"></textarea>
                 </div>
-                <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit" (click)="addTransaction(txnAmount.value, txnDescription.value, txnType.value);">Submit</button>
+                <button class="btn btn-outline-secondary btn-lg" type="submit">Cancel</button>
+                <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit" (click)="addTransaction(txnAmount.value, txnDescription.value, receiverAccountId.value);">Submit</button>
                 
           </form>
 
@@ -30,7 +29,7 @@
             <h2>{{txn.description}}</h2>
             <h1>{{txn.type}}: ${{txn.amount}}</h1>
         </div>
-        <p>{{accountMessage}}</p>
+        <!--<p>{{accountMessage}}</p> -->
         
         
     </div>
