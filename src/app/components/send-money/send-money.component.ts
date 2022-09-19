@@ -32,7 +32,7 @@ export class SendMoneyComponent implements OnInit {
   receiverName: FormControl = new FormControl(['']);
   receiverBalance: FormControl = new FormControl(['']);
   receiverDescription: FormControl = new FormControl(['']);
-  receiverAccountId: FormControl = new FormControl(['']);
+  receiverAccountId:  FormControl = new FormControl(['']);
 
   transactionsExists: boolean = false;
   createFormOpen: boolean = false;
@@ -91,10 +91,19 @@ export class SendMoneyComponent implements OnInit {
     );
   }
   
-  sendReceiverMoney(amount:number, description:string, receiverEmail:string){
+  sendReceiverMoney(amount:number, description:string, receiverId:string){
+    localStorage.setItem('current-account', ''+this.userAccount.id);
+    console.log(this.accountId);
+    console.log(receiverId);
     const type: string ='Expense';
     const txn = new Transaction(0, amount, description, type);
-    this.accountService.createTransaction(this.receiverEmail, txn)
+    console.log(txn);
+    //this.accountService.createTransaction(this.receiverEmail, txn)
+    this.accountService.sendMoneyTransaction(this.accountId, receiverId, txn).subscribe({
+      next:()=>{
+        console.log("In send money");
+      }
+    });
 
   }
   getReceiver(){
