@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/services/auth.service'; // this is also for
 })
 export class PasswordResetComponent implements OnInit {
 
+  hidden: boolean = false;
   token: string = "";
   password: FormControl = new FormControl(['']);
   confirmPassword: FormControl = new FormControl(['']);
@@ -79,6 +80,8 @@ export class PasswordResetComponent implements OnInit {
       
       next: (response) => {
         localStorage.setItem('current-user', ''+response.id);
+        this.noticeMessage = 'New password saved. Redirecting to login.'
+        this.switchtVisibility();
       },
       error: (err) => {
         if(err.status == 404) {
@@ -88,9 +91,16 @@ export class PasswordResetComponent implements OnInit {
         }
       },
       complete: () => {
-        this.router.navigateByUrl('/login');
+        if(this.noticeMessage != "")
+        setTimeout(() => {
+          this.router.navigateByUrl('/login') 
+        }, 2500)
       }
     })
+  }
+
+  switchtVisibility() {
+    this.hidden = !this.hidden;
   }
  
 }
