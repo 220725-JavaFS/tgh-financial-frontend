@@ -22,6 +22,7 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
+<<<<<<< HEAD
   /**
    * tests the forgot service method
    */
@@ -69,4 +70,18 @@ describe('AuthService', () => {
 
     testRequest.flush(expectedData);
   })
+=======
+  it('#login should return expected data', (done) => {
+    const expectedData: User = new User(0, '', '');
+
+    service.login('','').subscribe(data => {
+      expect(data).toEqual(expectedData);
+      done();
+    })
+    
+    const testRequest = http.expectOne(authUrl+'/login');
+
+    testRequest.flush(expectedData);
+  });
+>>>>>>> 50573b2b86370c34d5778c20eceb1b8e0f77ef58
 });
