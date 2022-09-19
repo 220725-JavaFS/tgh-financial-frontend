@@ -10,19 +10,20 @@
             <h1 *ngIf="accountExists">Balance: ${{accounts.balance}}</h1>
         </div>
         <p>{{accountMessage}}</p>
-        <button class="btn btn-outline-primary btn-lg" *ngIf="!createFormOpen && !accountExists" (click)="openCreateForm();">Open Account</button>
+        <!-- *ngIf="!createFormOpen && !accountExists" -->
+        <button class="btn btn-outline-primary btn-lg"  (click)="openCreateForm();">Open Account</button>
         <form class="input-form" *ngIf="createFormOpen">
               <div class="input-group mb-3">
                 <input type="text" class="form-control" [formControl]="accountName" placeholder="Account Name" id="basic-name" aria-describedby="basic-addon3">
               </div>
-              <div class="input-group mb-3" *ngIf="!accountExists">               
+              <div class="input-group mb-3">               
                 <span class="input-group-text">$</span>
                 <input type="number" placeholder="Balance" [formControl]="balance" class="form-control" aria-label="Amount (to the nearest dollar)">
               </div>
               <div class="input-group">
                 <textarea class="form-control" [formControl]="accountDescription" placeholder="Account Description..." aria-label="With textarea"></textarea>
               </div>
-              <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit" (click)="attemptUpsertAccount(accountName.value, balance.value, accountDescription.value);">Save</button>
+              <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit" (click)="insertAccount(accountName.value, balance.value, accountDescription.value);">Save</button>
         </form>
     </div>
 </div>
