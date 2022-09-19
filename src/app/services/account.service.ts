@@ -19,8 +19,8 @@ export class AccountService {
     this.accountId = localStorage.getItem('current-account') || '';
    }
 
-   getAccount(): Observable<Account> {
-    return this.http.get<Account>(this.accountUrl+`/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
+   getAccount(): Observable<Account[]> {
+    return this.http.get<Account[]>(this.accountUrl+`/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
 
    getTransactions(accountId: string): Observable<Transaction[]> {
