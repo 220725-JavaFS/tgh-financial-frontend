@@ -36,11 +36,16 @@ export class UserProfileComponent implements OnInit {
 
   getUserProfile() {
     this.userProfileService.getUserProfile(this.profileUrl).subscribe({
-      next: (response) => { 
-        this.profile = response;
+      next: (response) => {
+        if (response != null) { 
+          this.profile = response;
+        } else {
+          this.profile = new UserProfile(0, '', '', '', '', '', '', '');
+        }
         console.log(response);
       },
       error: () => {
+        this.profile = new UserProfile(0, '', '', '', '', '', '', '');
         this.updateFeedback = "No profile was found, please create one!"
       },
       complete: () => {
