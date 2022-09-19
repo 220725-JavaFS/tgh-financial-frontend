@@ -32,7 +32,7 @@ export class SendMoneyComponent implements OnInit {
   receiverName: FormControl = new FormControl(['']);
   receiverBalance: FormControl = new FormControl(['']);
   receiverDescription: FormControl = new FormControl(['']);
-  receiverEmailInfo: FormControl = new FormControl(['']);
+  receiverAccountId: FormControl = new FormControl(['']);
 
   transactionsExists: boolean = false;
   createFormOpen: boolean = false;
