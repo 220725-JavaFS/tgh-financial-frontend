@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent },
   { path: 'home', component: HomeComponent },
   // Created a new path for the pass-word reset page
-  { path: 'confirm-reset', component: PasswordResetComponent }
+  { path: 'confirm-reset', component: PasswordResetComponent },
   { path: 'forgot', component: PasswordResetSendEmailComponent }
 ];
 
