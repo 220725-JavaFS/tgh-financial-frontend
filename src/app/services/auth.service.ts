@@ -15,6 +15,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  //Testing Example in corresponding spec.ts
   login(email: string, password: string): Observable<User> {
     const creds = {email: email, password: password};
     const payload = JSON.stringify(creds);
