@@ -13,15 +13,28 @@ export class UserProfileService {
 
   constructor(private http: HttpClient) { };
 
-  postUserProfile(url: string, userProfile: UserProfile): Observable<UserProfile> {
-    let profileObservable: Observable<UserProfile>;
-    if (userProfile.id) {
-      userProfile.id = undefined;
-      profileObservable = this.http.put<UserProfile>(url, userProfile, this.options);
-    } else {
-      profileObservable = this.http.post<UserProfile>(url, userProfile, this.options);
+  makeRequestObject(profile: UserProfile) {
+    return {
+        firstName: profile.firstName,
+        lastNamee: profile.lastName,
+        address: profile.address,
+        city: profile.city,
+        state: profile.state,
+        zipCode: profile.zipCode,
+        phone: profile.phone
     }
-    return profileObservable;
+}
+
+  postUserProfile(url: string, userProfile: UserProfile): Observable<UserProfile> {
+    if (userProfile.id) {
+      console.log("making put request with");
+      console.log(this.makeRequestObject(userProfile));
+      return this.http.put<UserProfile>(url, this.makeRequestObject(userProfile), this.options);
+    } else {
+      console.log("making post request with new profile data");
+      console.log(this.makeRequestObject(userProfile));
+      return this.http.post<UserProfile>(url, this.makeRequestObject(userProfile), this.options);
+    }
   }
 
   getUserProfile(url: string): Observable<UserProfile> {

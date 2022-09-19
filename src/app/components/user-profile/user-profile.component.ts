@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { UserProfile } from 'src/app/models/user-profile';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { environment } from 'src/environments/environment';
@@ -13,21 +12,20 @@ export class UserProfileComponent implements OnInit {
 
   updateFeedback = '';
   profileUrl = '';
-
-  profile: UserProfile = new UserProfile();
+  profile: UserProfile = new UserProfile(0, '', '', '', '', '', '', '');
 
   constructor(private userProfileService:UserProfileService) { }
 
   ngOnInit(): void {
-    this.getUserProfile();
     this.profileUrl = environment.url + 'profile/' + localStorage.getItem('current-user');
+    this.getUserProfile();
+    console.log(this.profileUrl);
   }
 
   postUserProfile() {
     this.userProfileService.postUserProfile(this.profileUrl, this.profile).subscribe({
       next: (response) => {
         console.log(response);
-        this.profile = response;
         this.updateFeedback = 'Profile Updated!';
       },
       error: () => {
