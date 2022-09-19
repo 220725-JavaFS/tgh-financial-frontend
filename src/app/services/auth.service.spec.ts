@@ -22,6 +22,54 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
+  /**
+   * tests the forgot service method
+   */
+  it('#forgot should return expected data', (done) => {
+    const expectedData: User = new User(0, '', '');
+    
+    service.forgot('').subscribe( data => {
+      expect(data).toEqual(expectedData);
+      done();
+    }) 
+  
+    const testRequest  = http.expectOne(authUrl + '/forgot');
+
+    testRequest.flush(expectedData);
+  })
+
+  /**
+   * tests the reset-password service method
+   */
+  it('#reset-password should return expected data', (done) => {
+    const expectedData: any = new User(0, '', '');
+    
+    service.resetPassword(new User(0, '', '')).subscribe( data => {
+      expect(data).toEqual(expectedData);
+      done();
+    }) 
+  
+    const testRequest  = http.expectOne(authUrl + '/reset-password');
+
+    testRequest.flush(expectedData);
+  })
+
+  /**
+   * tests the sendToken service method
+   */
+   it('#sendTokenBack should return expected data', (done) => {
+    const expectedData: any = new User(0, '', '');
+    
+    service.sendTokenBack('').subscribe( data => {
+      expect(data).toEqual(expectedData);
+      done();
+    }) 
+  
+    const testRequest  = http.expectOne(authUrl + '/confirm-reset');
+
+    testRequest.flush(expectedData);
+  })
+
   it('#login should return expected data', (done) => {
     const expectedData: User = new User(0, '', '');
 
@@ -34,4 +82,5 @@ describe('AuthService', () => {
 
     testRequest.flush(expectedData);
   });
+
 });
