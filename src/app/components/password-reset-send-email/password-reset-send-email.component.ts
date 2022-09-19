@@ -13,6 +13,7 @@ export class PasswordResetSendEmailComponent implements OnInit {
   constructor(private isAuth: AuthService, private router: Router) { }
 
   email: FormControl = new FormControl(['']);
+  // Used on in HTML file
 
   NoticeMessage: string = "";
   ErrorMessage: string = "";
@@ -25,7 +26,7 @@ export class PasswordResetSendEmailComponent implements OnInit {
   attemptForgot(email: string){
     this.newErrorVisibility = false;
     this.switchErrorVisibility();
-    this.isAuth.forgot(email).subscribe({
+    this.isAuth.forgotPassword(email).subscribe({
       next: () => {
         console.log("Success");
         this.NoticeMessage = "Email Has Been Sent!!";
@@ -41,9 +42,9 @@ export class PasswordResetSendEmailComponent implements OnInit {
       },
       complete: () => { 
         if(this.NoticeMessage != "")
-        setTimeout(() => {
-          this.router.navigateByUrl('/login') 
-        }, 2500)
+          setTimeout(() => {
+            this.router.navigateByUrl('/login') 
+          }, 2500)
       }
     })
   }
