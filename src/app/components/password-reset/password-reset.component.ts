@@ -67,7 +67,7 @@ export class PasswordResetComponent implements OnInit {
 
   // this resets the password
   attemptResetPassword(password: string, confirmPassword: string) {
-    if(password.trim() !== confirmPassword.trim()) {
+    if(password !== confirmPassword) {
       this.noticeMessage = 'Please match passwords!';
       return;
     }
