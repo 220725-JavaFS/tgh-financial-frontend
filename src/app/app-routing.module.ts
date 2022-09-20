@@ -4,6 +4,9 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AccountComponent } from './components/account/account.component';
 import { HomeComponent } from './components/home/home.component';
+
+import { SendMoneyComponent } from './components/send-money/send-money.component';
+
 // Imported the password-reset component
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { PasswordResetSendEmailComponent } from './components/password-reset-send-email/password-reset-send-email.component';

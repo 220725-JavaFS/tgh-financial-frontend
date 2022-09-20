@@ -15,6 +15,7 @@ import { SendMoneyComponent } from './components/send-money/send-money.component
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { PasswordResetSendEmailComponent } from './components/password-reset-send-email/password-reset-send-email.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
