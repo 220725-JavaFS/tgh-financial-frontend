@@ -97,7 +97,7 @@ export class SendMoneyComponent implements OnInit {
     localStorage.setItem('current-account', ''+this.userAccount.id);
     console.log(this.accountId);
     console.log(receiverId);
-    const type: string ='Income';
+    const type: string ='Expense';
     const txn = new Transaction(0, amount, description, type);
     console.log(txn);
     //this.accountService.createTransaction(this.receiverEmail, txn)
