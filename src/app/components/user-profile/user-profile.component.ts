@@ -24,12 +24,12 @@ export class UserProfileComponent implements OnInit {
     console.log(this.profileUrl);
   }
 
-  postUserProfile() {
+  postUserProfile(): void {
     this.userProfileService.postUserProfile(this.profileUrl, this.profile).subscribe({
       next: (response) => {
         console.log(response);
         this.getUserProfile();
-        this.isNewUser=false;
+        this.isNewUser = false;
         this.updateFeedback = 'Successfully created a new profile!';
       },
       error: () => {
@@ -38,7 +38,7 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  getUserProfile() {
+  getUserProfile():void {
     this.userProfileService.getUserProfile(this.profileUrl).subscribe({
       next: (response) => {
         if (response != null) { 
