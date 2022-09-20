@@ -19,13 +19,25 @@ export class AccountService {
     this.accountId = localStorage.getItem('current-account') || '';
    }
 
-   getAccount(): Observable<Account> {
-    return this.http.get<Account>(this.accountUrl+`/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
+   getAccount(): Observable<Account[]> {
+    return this.http.get<Account[]>(this.accountUrl+ `/user/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
 
    getTransactions(accountId: string): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(this.accountUrl+`/${accountId}/transaction`, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
+   //new
+   insertAccount(account: Account): Observable<Account> {
+    console.log(this.userId, "<--- This thingg");
+    environment.headers['Current-User'] = this.userId;
+    return this.http.post<Account>(this.accountUrl +"/new", account, {headers: environment.headers, withCredentials: environment.withCredentials});
+   }
+
+   //new
+  //  updateAccount(account: Account): Observable<Account> {
+  //   environment.headers['Current-User'] = this.userId;
+  //   return this.http.post<Account>(this.accountUrl, account, {headers: environment.headers, withCredentials: environment.withCredentials});
+  //  }
 
    upsertAccount(account: Account): Observable<Account> {
     environment.headers['Current-User'] = this.userId;
