@@ -4,8 +4,10 @@
 * [Development server](#development-server)
 * [Code scaffolding](#code-scaffolding)
 * [Build](#build)
-* [tests](#running-end-to-end-tests)
-
+* [Unit tests](#running-unit-tests)
+* [End-to-end Tests](#running-end-to-end-tests)
+* [Operating Systems](#operating-systems)
+* [Further Help](#further-help)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
 
