@@ -12,6 +12,8 @@ export class UserProfileComponent implements OnInit {
 
   updateFeedback = '';
   profileUrl = '';
+  visible:boolean = true;
+  isNewUser:boolean = false;
   profile: UserProfile = new UserProfile(0, '', '', '', '', '', '', '');
 
   constructor(private userProfileService:UserProfileService) { }
@@ -26,7 +28,9 @@ export class UserProfileComponent implements OnInit {
     this.userProfileService.postUserProfile(this.profileUrl, this.profile).subscribe({
       next: (response) => {
         console.log(response);
-        this.updateFeedback = 'Profile Updated!';
+        this.getUserProfile();
+        this.isNewUser=false;
+        this.updateFeedback = 'Successfully created a new profile!';
       },
       error: () => {
         this.updateFeedback = 'An error occurred';
@@ -39,25 +43,25 @@ export class UserProfileComponent implements OnInit {
       next: (response) => {
         if (response != null) { 
           this.profile = response;
+          this.visible = false;
         } else {
           this.profile = new UserProfile(0, '', '', '', '', '', '', '');
+          this.updateFeedback = "No profile detected, please create one"
+          this.isNewUser=true;
         }
         console.log(response);
       },
       error: () => {
         this.profile = new UserProfile(0, '', '', '', '', '', '', '');
-        this.updateFeedback = "No profile was found, please create one!"
-      },
-      complete: () => {
-        this.updateFeedback = "Profile was successfully retrieved";
+        this.updateFeedback = 'An error occurred'
       }
     });
   }
-
-
-
   
-
+  switchVisibility(){
+    this.visible = !this.visible;
+    this.updateFeedback = '';
+  }
 
 
 
