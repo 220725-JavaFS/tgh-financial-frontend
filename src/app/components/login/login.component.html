@@ -13,6 +13,9 @@
                   <input type="password" class="form-control" [formControl]="password" id="validationDefaultPassword" placeholder="Password"  aria-describedby="inputGroupPrepend2" required>
                 </div>
               </div>
+              <div class="col-12">
+                  <a [routerLink]="['/forgot']">Forgot Password</a>
+                </div>
             <div class="col-12">
               <button class="btn btn-success btn-lg" type="submit" (click)="attemptLogin(email.value, password.value);">Login</button>
             </div>
