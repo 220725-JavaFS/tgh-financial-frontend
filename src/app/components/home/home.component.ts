@@ -12,11 +12,13 @@ export class HomeComponent implements OnInit {
 
   accountExists: boolean = false;
   createFormOpen: boolean = false;
+  updateFormOpen: boolean = false;
   userAccount!: Account;
   allUserAccounts: Account[] =[];
 
   accountMessage: string = '';
 
+  accountId: FormControl = new FormControl(['']);
   accountName: FormControl = new FormControl(['']);
   balance: FormControl = new FormControl(['']);
   accountDescription: FormControl = new FormControl(['']);
@@ -59,8 +61,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  updateForm(){
+    this.updateFormOpen = true;
+    this.createFormOpen = false;
+  }
+
   openCreateForm() {
     this.createFormOpen = true;
+    this.updateFormOpen = false;
   }
 
   //Need to add validation (broken up from upsert method)
@@ -70,6 +78,19 @@ export class HomeComponent implements OnInit {
       next: (response) => {
         console.log(response);
         this.accountService.getAccount();
+        this.createFormOpen = false;
+      }
+    })
+  }
+
+  updateAccount(accountId: number, name: string, balance: number, description: string){
+    this.userAccount = new Account(accountId, name, balance, description, null);
+    this.accountService.updateAccount(this.userAccount).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.accountService.getAccount();
+        this.updateFormOpen = false;
+
       }
     })
   }
