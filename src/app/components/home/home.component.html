@@ -3,6 +3,7 @@
     <div class="account-wrap">
         <h2>My Bank Account</h2>
         <div *ngFor = "let accounts of allUserAccounts" class="account-card">
+          <h2 *ngIf= "accountExists">Account ID: {{accounts.id}}</h2>
             <h2 *ngIf="accountExists">{{accounts.name}}</h2>
             <h4 *ngIf="accountExists">Description: {{accounts.description}}</h4>
             <h4 *ngIf="accountExists">Created On: {{accounts.creationDate}}</h4>
@@ -12,6 +13,10 @@
         <p>{{accountMessage}}</p>
         <!-- *ngIf="!createFormOpen && !accountExists" -->
         <button class="btn btn-outline-primary btn-lg"  (click)="openCreateForm();">Open Account</button>
+
+        <div> <button (click)="openCreateForm();" class="btn btn-outline-secondary btn-lg">Update Account Info</button> </div>
+        
+
         <form class="input-form" *ngIf="createFormOpen">
               <div class="input-group mb-3">
                 <input type="text" class="form-control" [formControl]="accountName" placeholder="Account Name" id="basic-name" aria-describedby="basic-addon3">
