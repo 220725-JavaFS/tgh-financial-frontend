@@ -1,5 +1,13 @@
 # BankingFrontendAngular
 
+## Table of contents
+* [Development server](#development-server)
+* [Code scaffolding](#code-scaffoldings)
+* [Build](#build)
+* [Running unit tests](#running-unit-tests)
+* [Running end-to-end tests](#running-end-to-end-tests)
+* [Further help](#further-help)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
 
 ## Development server
