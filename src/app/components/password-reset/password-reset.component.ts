@@ -18,6 +18,7 @@ export class PasswordResetComponent implements OnInit {
   password: FormControl = new FormControl(['']);
   confirmPassword: FormControl = new FormControl(['']);
   noticeMessage: string = '';
+  noticeMessage2: string = '';
   tokenUser: TokenUser = new TokenUser(0, '', new Date(), new User(0,'', ''));
   
 
@@ -68,7 +69,7 @@ export class PasswordResetComponent implements OnInit {
   // this resets the password
   attemptResetPassword(password: string, confirmPassword: string) {
     if(password !== confirmPassword) {
-      this.noticeMessage = 'Please match passwords!';
+      this.noticeMessage = 'Error: passwords must match.';
       return;
     }
     let user = this.tokenUser["user"];
@@ -80,7 +81,7 @@ export class PasswordResetComponent implements OnInit {
       
       next: (response) => {
         localStorage.setItem('current-user', ''+response.id);
-        this.noticeMessage = 'New password saved. Redirecting to login.'
+        this.noticeMessage2 = 'New password saved. Redirecting to login.'
         this.switchtVisibility();
       },
       error: (err) => {
