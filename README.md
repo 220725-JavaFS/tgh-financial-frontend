@@ -1,6 +1,19 @@
-# BankingFrontendAngular
+<h1 align="center">BankingFrontendAngular</h1>
+
+## Table of contents
+* [Development server](#development-server)
+* [Code scaffolding](#code-scaffolding)
+* [Build](#build)
+* [tests](#running-end-to-end-tests)
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+
+## Getting Started
+- `git` should be installed
+- Vscode is a suggested code editor.
+- Chrome is or Firefox are prefered browsers to utilize.
+- Bash shell should be used in the project
 
 ## Development server
 
@@ -28,3 +41,5 @@ You can run this on Mac, Windows, or on Linux
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
