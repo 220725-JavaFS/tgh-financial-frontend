@@ -12,14 +12,20 @@ export class HomeComponent implements OnInit {
 
   accountExists: boolean = false;
   createFormOpen: boolean = false;
+  updateFormOpen: boolean = false;
   userAccount!: Account;
   allUserAccounts: Account[] =[];
 
   accountMessage: string = '';
 
+  accountId: FormControl = new FormControl(['']);
   accountName: FormControl = new FormControl(['']);
   balance: FormControl = new FormControl(['']);
   accountDescription: FormControl = new FormControl(['']);
+
+  updateAccountName: FormControl = new FormControl(['']);
+  updateBalance: FormControl = new FormControl(['']);
+  updateAccountDescription: FormControl = new FormControl(['']);
 
   constructor(private accountService: AccountService) { }
 
@@ -55,9 +61,16 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  updateForm(){
+    this.updateFormOpen = true;
+    this.createFormOpen = false;
+  }
+
   openCreateForm() {
     this.createFormOpen = true;
+    this.updateFormOpen = false;
   }
+
   //Need to add validation (broken up from upsert method)
   insertAccount(name: string, balance: number, description: string){
     this.userAccount = new Account(0, name, balance, description, null);
@@ -65,6 +78,19 @@ export class HomeComponent implements OnInit {
       next: (response) => {
         console.log(response);
         this.accountService.getAccount();
+        this.createFormOpen = false;
+      }
+    })
+  }
+
+  updateAccount(accountId: number, name: string, balance: number, description: string){
+    this.userAccount = new Account(accountId, name, balance, description, null);
+    this.accountService.updateAccount(this.userAccount).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.accountService.getAccount();
+        this.updateFormOpen = false;
+
       }
     })
   }
@@ -78,7 +104,7 @@ export class HomeComponent implements OnInit {
       this.userAccount.description = description;
     }
 
-    this.accountService.insertAccount(this.userAccount).subscribe({
+    this.accountService.insertAccount(this.userAccount,).subscribe({
       next: (response) => {
         this.userAccount.id = response.id;
         this.userAccount.creationDate = response.creationDate;
