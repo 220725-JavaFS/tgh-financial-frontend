@@ -11,6 +11,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SendMoneyComponent } from './components/send-money/send-money.component';
+// Imported a password reset component
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { PasswordResetSendEmailComponent } from './components/password-reset-send-email/password-reset-send-email.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +24,12 @@ import { SendMoneyComponent } from './components/send-money/send-money.component
     AccountComponent,
     HomeComponent,
     NavbarComponent,
+
     SendMoneyComponent
+
+    PasswordResetComponent,
+    PasswordResetSendEmailComponent
+
   ],
   imports: [
     BrowserModule,
