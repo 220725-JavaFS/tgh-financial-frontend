@@ -1,0 +1,34 @@
+<app-navbar></app-navbar>
+<div class="home-wrap">
+    <div class="account-wrap">
+        <h2>Account Details: {{accountName.value}}</h2>
+        <h4>Unique ID (for transactions): {{userAccount.id}}</h4>        
+        
+        <h2 id="balance" [style]="balanceStyle">Balance: ${{balance.value}}
+          <br>
+        </h2>
+          <form class="input-form" *ngIf="createFormOpen">
+                <div class="input-group mb-3">   
+                  <h6>Receiver Details: {{receiverName.value}}</h6>
+                  <input type="text" placeholder="Account Id" [formControl]="receiverAccountId">
+                  <span class="input-group-text">$</span>
+                  <input type="number" placeholder="Amount" [formControl]="txnAmount" class="form-control" aria-label="Amount (to the nearest dollar)">
+                </div>
+                <div class="input-group">
+                  <textarea class="form-control" [formControl]="txnDescription" placeholder="Memo..." aria-label="With textarea"></textarea>
+                </div>                
+                <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit" (click)="sendReceiverMoney(txnAmount.value,txnDescription.value,receiverAccountId.value)">Submit</button>
+                
+          </form>
+
+          
+
+        <div class="account-card" *ngFor="let txn of transactions">
+          <h2>{{txn.description}}</h2>
+          <h1>{{txn.type}}: ${{txn.amount}}</h1>
+        </div>
+        <!--<p>{{accountMessage}}</p> -->
+        
+        
+    </div>
+</div>
