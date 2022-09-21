@@ -37,22 +37,15 @@ export class AccountService {
    }
    
    createTransaction(accountId: string, txn: Transaction): Observable<Transaction> {
-    console.log(environment.headers)
-    console.log(environment.withCredentials)
     return this.http.post<Transaction>(this.accountUrl+`/${accountId}/transaction`, 
     txn, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
 
    sendMoneyTransaction(accountId: string, accountReceiver: string, txn: Transaction): Observable<Transaction> {
-    console.log(this.accountUrl+`/${accountId}/sendMoney${accountReceiver}`);
     environment.headers['Current-User'] = this.userId;
-
-    console.log(environment.headers)
-    console.log(environment.withCredentials)
-    
+    console.log("send Money transaction occuring at this time");
     return this.http.post<Transaction>(this.accountUrl+`/${accountId}/sendMoney${accountReceiver}`,
     txn, {headers: environment.headers, withCredentials: environment.withCredentials});
-    
    }
 
 

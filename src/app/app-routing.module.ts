@@ -5,7 +5,6 @@ import { RegisterComponent } from './components/register/register.component';
 import { AccountComponent } from './components/account/account.component';
 import { HomeComponent } from './components/home/home.component';
 
-import { SendMoneyComponent } from './components/send-money/send-money.component';
 
 // Imported the password-reset component
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
