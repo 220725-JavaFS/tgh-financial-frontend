@@ -9,17 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  loggedIn: boolean = false;
-  modeText: string = 'Dark Mode';
-  @Output() modeChangeEvent = new EventEmitter<boolean>();
-  
-  darkMode: boolean = false;
-
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-      this.darkMode = localStorage.getItem('darkMode') ? true : false;
-      this.modeChangeEvent.emit(this.darkMode);
+
   }
 
   logout() {
@@ -28,11 +21,5 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  changeMode() {
-    this.darkMode = !this.darkMode;
-    this.modeText = this.darkMode ? 'Light Mode' : 'Dark Mode'
-    localStorage.setItem('darkMode', this.darkMode ? 'true' : '');
-    this.modeChangeEvent.emit(this.darkMode);
-  }
 
 }

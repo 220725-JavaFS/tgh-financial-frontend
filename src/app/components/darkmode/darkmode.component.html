@@ -1,0 +1,11 @@
+
+
+<div [ngClass]="{'bg-dark text-light':darkMode, 'bg-light text-dark':!darkMode}"> 
+    <div class="form-check form-switch" (click)="changeMode()">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">{{modeText}}</label>
+    </div>  
+</div>
+   
+
+
