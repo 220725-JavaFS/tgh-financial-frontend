@@ -3,18 +3,18 @@
   <div class="account-wrap">
     <h2>My Bank Account</h2>
     <div *ngFor="let accounts of allUserAccounts" class="account-card">
-      <h2 *ngIf="accountExists">Account ID: {{accounts.id}}</h2>
       <h2 *ngIf="accountExists">{{accounts.name}}</h2>
+      <h4 *ngIf="accountExists">Account ID: {{accounts.id}}</h4>
       <h4 *ngIf="accountExists">Description: {{accounts.description}}</h4>
       <h4 *ngIf="accountExists">Created On: {{accounts.creationDate}}</h4>
-      <button class="btn btn-outline-secondary btn-lg" [routerLink]="['/account']">Account Details</button>
+      <button class="btn btn-outline-secondary btn-lg" (click)=changeCurrentAccountId(accounts.id); [routerLink]="['/account']">Account Details</button>
       <h1 *ngIf="accountExists">Balance: ${{accounts.balance}}</h1>
     </div>
     <p>{{accountMessage}}</p>
-    <!-- *ngIf="!createFormOpen && !accountExists" -->
+    
     <button class="btn btn-outline-primary btn-lg" (click)="openCreateForm();">Open Account</button>
 
-    <div> <button (click)="updateForm();" class="btn btn-outline-secondary btn-lg">Update Account Info</button> </div>
+    <span> <button (click)="updateForm();" class="btn btn-outline-secondary btn-lg">Update Account Info</button> </span>
 
 
     <form class="input-form" *ngIf="createFormOpen">
@@ -24,7 +24,7 @@
       </div>
       <div class="input-group mb-3">
         <span class="input-group-text">$</span>
-        <input type="number" placeholder="Balance" [formControl]="balance" class="form-control"
+        <input type="number" placeholder="Balance" min="1" [formControl]="balance" class="form-control"
           aria-label="Amount (to the nearest dollar)">
       </div>
       <div class="input-group">
@@ -46,7 +46,7 @@
       </div>
       <div class="input-group mb-3">
         <span class="input-group-text">$</span>
-        <input type="number" placeholder="Balance" [formControl]="balance" class="form-control"
+        <input type="number" placeholder="Balance" min="1" [formControl]="balance" class="form-control"
           aria-label="Amount (to the nearest dollar)">
       </div>
       <div class="input-group">

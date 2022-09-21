@@ -12,15 +12,23 @@ export class AccountService {
 
   userId: string;
   accountUrl: string = environment.url+'account';
-  accountId: string = '';
+  accountId: string = localStorage.getItem('current-account') || '';
 
   constructor(private http: HttpClient) {
     this.userId = localStorage.getItem('current-user') || '';
     this.accountId = localStorage.getItem('current-account') || '';
    }
 
-   getAccount(): Observable<Account[]> {
+   getAccounts(): Observable<Account[]> {
     return this.http.get<Account[]>(this.accountUrl+ `/user/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
+   }
+
+   getSingleAccount(): Observable<Account> {
+    return this.http.get<Account>(this.accountUrl+ `/${this.accountId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
+   }
+
+   getAccount(accountId:string): Observable<Account> {
+    return this.http.get<Account>(this.accountUrl+ `/${accountId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
 
    getTransactions(accountId: string): Observable<Transaction[]> {

@@ -14,7 +14,8 @@ export class HomeComponent implements OnInit {
   createFormOpen: boolean = false;
   updateFormOpen: boolean = false;
   userAccount!: Account;
-  allUserAccounts: Account[] =[];
+  allUserAccounts: Account[] = [];
+  currentAccountId: number = 0;
 
   accountMessage: string = '';
 
@@ -30,18 +31,36 @@ export class HomeComponent implements OnInit {
   constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
-    this.accountService.getAccount().subscribe({
+    this.getAllAccounts();
+  }
+
+  changeCurrentAccountId(uniqueAccountId: number) {
+    this.currentAccountId = uniqueAccountId;
+    localStorage.setItem('current-account', '' + this.currentAccountId);
+    console.log(this.currentAccountId);
+  }
+
+
+  updateForm() {
+    this.updateFormOpen = true;
+    this.createFormOpen = false;
+    this.updateAccountName.setValue("");
+    this.updateBalance.setValue(['']);
+    this.updateAccountDescription.setValue(['']);
+  }
+
+  openCreateForm() {
+    this.createFormOpen = true;
+    this.updateFormOpen = false;
+    this.updateAccountName.setValue("");
+    this.updateBalance.setValue("");
+    this.updateAccountDescription.setValue("");
+  }
+
+  getAllAccounts() {
+    this.accountService.getAccounts().subscribe({
       next: (response: Account[]) => {
         this.allUserAccounts = response;
-        console.log(response);
-
-        // this.userAccount = new Account(
-        //   response.id,
-        //   response.name,
-        //   response.balance,
-        //   response.description,
-        //   response.creationDate
-        // );
       },
       error: () => {
         this.accountMessage = "No account was found, please create one!"
@@ -49,54 +68,49 @@ export class HomeComponent implements OnInit {
       complete: () => {
         this.accountMessage = "Account was successfully retrieved from the database."
         this.accountExists = true;
-
-        // const num = this.userAccount.balance;
-        // this.userAccount.balance = +num.toFixed(2);
-        // this.accountName.setValue(this.userAccount.name);
-        // this.balance.setValue(this.userAccount.balance);
-        // this.accountDescription.setValue(this.userAccount.description);
-        // this.accountService.accountId = ''+this.userAccount.id;
-        // localStorage.setItem('current-account', ''+this.userAccount[0].id);
       }
     });
   }
 
-  updateForm(){
-    this.updateFormOpen = true;
-    this.createFormOpen = false;
-  }
-
-  openCreateForm() {
-    this.createFormOpen = true;
-    this.updateFormOpen = false;
-  }
-
   //Need to add validation (broken up from upsert method)
-  insertAccount(name: string, balance: number, description: string){
+  insertAccount(name: string, balance: number, description: string) {
+    this.updateAccountName.setValue("");
+    this.updateBalance.setValue("");
+    this.updateAccountDescription.setValue("");
     this.userAccount = new Account(0, name, balance, description, null);
     this.accountService.insertAccount(this.userAccount).subscribe({
       next: (response) => {
-        console.log(response);
-        this.accountService.getAccount();
+        //this.accountService.getSingleAccount();
         this.createFormOpen = false;
+      },
+      complete: () => {
+        this.getAllAccounts();
       }
     })
   }
 
-  updateAccount(accountId: number, name: string, balance: number, description: string){
+  updateAccount(accountId: number, name: string, balance: number, description: string) {
+    this.updateAccountName.setValue("");
+    this.updateBalance.setValue("");
+    this.updateAccountDescription.setValue("");
     this.userAccount = new Account(accountId, name, balance, description, null);
     this.accountService.updateAccount(this.userAccount).subscribe({
       next: (response) => {
-        console.log(response);
-        this.accountService.getAccount();
+        //this.accountService.getSingleAccount();
         this.updateFormOpen = false;
+      },
+      error: () => {
+        this.accountMessage = 'Account was not successfully saved!';
+      },
+      complete: () => {
+        this.getAllAccounts();
 
       }
     })
   }
-  
+
   attemptUpsertAccount(name: string, balance: number, description: string) {
-    if(!this.userAccount) {
+    if (!this.userAccount) {
       this.userAccount = new Account(0, name, balance, description, null);
     } else {
       this.userAccount.name = name;
@@ -116,8 +130,8 @@ export class HomeComponent implements OnInit {
         this.accountExists = true;
         this.createFormOpen = false;
         this.accountMessage = 'Account was saved!';
-        this.accountService.accountId = ''+this.userAccount.id;
-        localStorage.setItem('current-account', ''+this.userAccount.id);
+        this.accountService.accountId = '' + this.userAccount.id;
+        localStorage.setItem('current-account', '' + this.userAccount.id);
       }
     })
   }
