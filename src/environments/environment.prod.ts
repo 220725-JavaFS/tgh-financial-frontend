@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   // url of back end
-  url: 'http://localhost:8080/',
+  url: 'http://ec2-44-204-84-170.compute-1.amazonaws.com:8083/',
   headers: {
     'Content-Type': 'application/json',
     // url of app
