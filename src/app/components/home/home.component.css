@@ -6,6 +6,10 @@
     align-items: center;
 }
 
+.error-message{
+    color:red;
+}
+
 .account-wrap {
     position: relative;
     width: 80%;
