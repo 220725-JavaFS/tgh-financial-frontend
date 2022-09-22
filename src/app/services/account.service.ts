@@ -36,4 +36,9 @@ export class AccountService {
     return this.http.post<Transaction>(this.accountUrl+`/${accountId}/transaction`, txn, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
 
+   setActiveUser(){
+    this.userId = localStorage.getItem('current-user') || '';
+    this.accountId = localStorage.getItem('current-account') || '';
+   }
+
 }

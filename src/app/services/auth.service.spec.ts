@@ -26,7 +26,7 @@ describe('AuthService', () => {
    * tests the forgot service method
    */
   it('#forgot should return expected data', (done) => {
-    const expectedData: User = new User(0, '', '');
+    const expectedData: User = new User(0, '', '', false);
     
     service.forgotPassword('').subscribe( data => {
       expect(data).toEqual(expectedData);
@@ -42,9 +42,9 @@ describe('AuthService', () => {
    * tests the reset-password service method
    */
   it('#reset-password should return expected data', (done) => {
-    const expectedData: any = new User(0, '', '');
+    const expectedData: any = new User(0, '', '', false);
     
-    service.resetPassword(new User(0, '', '')).subscribe( data => {
+    service.resetPassword(new User(0, '', '', false)).subscribe( data => {
       expect(data).toEqual(expectedData);
       done();
     }) 
@@ -58,7 +58,7 @@ describe('AuthService', () => {
    * tests the sendToken service method
    */
    it('#sendTokenBack should return expected data', (done) => {
-    const expectedData: any = new User(0, '', '');
+    const expectedData: any = new User(0, '', '', false);
     
     service.sendTokenBack('').subscribe( data => {
       expect(data).toEqual(expectedData);
@@ -71,7 +71,7 @@ describe('AuthService', () => {
   })
 
   it('#login should return expected data', (done) => {
-    const expectedData: User = new User(0, '', '');
+    const expectedData: User = new User(0, '', '', false);
 
     service.login('','').subscribe(data => {
       expect(data).toEqual(expectedData);
@@ -84,7 +84,7 @@ describe('AuthService', () => {
   });
 
   it('#register should return expected data', (done) => {
-    const expectedData: any = new User(0, '', '');
+    const expectedData: any = new User(0, '', '', false);
 
     service.register('','').subscribe(data => {
       expect(data).toEqual(expectedData);

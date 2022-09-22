@@ -14,6 +14,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 // Imported a password reset component
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { PasswordResetSendEmailComponent } from './components/password-reset-send-email/password-reset-send-email.component';
+import { DarkmodeComponent } from './components/darkmode/darkmode.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { PasswordResetSendEmailComponent } from './components/password-reset-sen
     NavbarComponent,
     UserProfileComponent,
     PasswordResetComponent,
-    PasswordResetSendEmailComponent
+    PasswordResetSendEmailComponent,
+    DarkmodeComponent
   ],
   imports: [
     BrowserModule,

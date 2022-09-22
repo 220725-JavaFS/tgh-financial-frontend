@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
-<div class="home-wrap">
-    <div class="account-wrap">
+<div [ngClass]="{'home-wrap':true}">
+    <div [ngClass]="{'account-wrap':true}">
         <h2>Account Details: {{accountName.value}}</h2>
         <h2 id="balance" [style]="balanceStyle">Balance: ${{balance.value}}</h2>
         <button class="btn btn-outline-primary btn-lg" *ngIf="!createFormOpen" (click)="openCreateForm();">Add Transaction</button>
