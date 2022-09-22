@@ -1,0 +1,112 @@
+<app-navbar></app-navbar>
+<div class="row gutters-sm" >
+    <div class="col-md-4 mb-3" style="margin:auto; margin-top: 50px">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex flex-column align-items-center text-center">
+            <img id="revicon" src="../../../assets/images/favicon.png" class="rounded-circle" width="150">
+            <div class="mt-3">
+              <h4 *ngIf=!visible>{{profile.firstName}} {{profile.lastName}}</h4>
+              <p class="text-secondary mb-1">TGH Financial Customer</p>
+              <p *ngIf=!visible >{{profile.address}}
+                <br>{{profile.city}}, {{profile.state}} {{profile.zipCode}}
+                <br>{{profile.phone}}
+             </p>
+
+
+              <button *ngIf=!visible class="btn btn-primary" (click)="switchVisibility()">Update Profile</button>
+              <button *ngIf=visible class="btn btn-primary" (click)="postUserProfile()">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!--END OF USER PROFILE CARD -->
+
+<p class="feedback">{{this.updateFeedback}}</p>
+<br>
+
+<div *ngIf=visible style="margin:auto" class="col-md-7">
+    <div class="card mb-3">
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-sm-3"> 
+            <h6>First Name</h6>
+          </div>
+          <div class="col">
+            <input type="text" [(ngModel)]="profile.firstName" class="form-control" placeholder="First Name" name="first">
+          </div>
+        </div>
+        
+        <hr>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <h6>Last Name</h6>
+          </div>
+          <div class="col">
+            <input type="text" [(ngModel)]="profile.lastName" class="form-control" placeholder="Last Name" name="last">
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <h6>Address</h6>
+          </div>
+          <div class="col">
+            <input type="text" [(ngModel)]="profile.address" class="form-control" placeholder="Street Address" name="address">
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <h6>City</h6>
+          </div>
+          <div class="col">
+            <input type="text" [(ngModel)]="profile.city" class="form-control" placeholder="City" name="city">
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <h6>State</h6>
+          </div>
+          <div class="col">
+            <input type="text" [(ngModel)]="profile.state" class="form-control" placeholder="State" name="state">
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <h6>Zip Code</h6>
+          </div>
+          <div class="col">
+            <input type="text" [(ngModel)]="profile.zipCode" class="form-control" placeholder="Zip Code" maxlength="5"  name="zip">
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-sm-3">
+            <h6>Phone</h6>
+          </div>
+          <div class="col">
+            <input type="text" [(ngModel)]="profile.phone" class="form-control" placeholder="Phone" maxlength="12" name="phone">
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>
+  
