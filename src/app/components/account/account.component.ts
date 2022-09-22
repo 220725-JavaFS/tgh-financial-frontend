@@ -42,10 +42,6 @@ export class AccountComponent implements OnInit {
     this.getAccount();
   }
 
-  // ngOnChanges(changes:SimpleChange){
-  //   this.getAccount() 
-  // }
-
   addTransaction(amount: number, description: string, type: string) {
     const txn = new Transaction(0, amount, description, type);
     this.accountService.createTransaction(this.accountId, txn).subscribe({
@@ -112,21 +108,10 @@ export class AccountComponent implements OnInit {
           }
         }
 
-
         this.accountName.setValue(this.userAccount.name);
-        console.log(this.accountName.status);
         this.balance.setValue(this.userAccount.balance);
-        console.log(this.balance.status);
         this.accountDescription.setValue(this.userAccount.description);
-        console.log(this.accountDescription.status);
 
-        // if (!localStorage.getItem('foo')) { 
-        //   localStorage.setItem('foo', 'no reload') 
-        //   location.reload() 
-        // } else {
-        //   localStorage.removeItem('foo') 
-      
-        // }
       }
     });
   }

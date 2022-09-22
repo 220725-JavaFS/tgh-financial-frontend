@@ -12,7 +12,7 @@
                     <option value="Income">Income (+)</option>
                   </select>            
                   <span class="input-group-text">$</span>
-                  <input type="number" placeholder="Amount" [formControl]="txnAmount" class="form-control" aria-label="Amount (to the nearest dollar)">
+                  <input type="number" placeholder="Amount" [formControl]="txnAmount" min="1" class="form-control" aria-label="Amount (to the nearest dollar)">
                 </div>
                 <div class="input-group">
                   <textarea class="form-control" [formControl]="txnDescription" placeholder="Account Description..." aria-label="With textarea"></textarea>

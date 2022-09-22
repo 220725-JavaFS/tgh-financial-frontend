@@ -13,9 +13,12 @@ export class HomeComponent implements OnInit {
   accountExists: boolean = false;
   createFormOpen: boolean = false;
   updateFormOpen: boolean = false;
+  balanceIsNegative: boolean = false;
+  balanceMessage: string = '';
   userAccount!: Account;
   allUserAccounts: Account[] = [];
   currentAccountId: number = 0;
+  selectedAccountId: number= 0;
 
   accountMessage: string = '';
 
@@ -25,7 +28,6 @@ export class HomeComponent implements OnInit {
   accountDescription: FormControl = new FormControl(['']);
 
   updateAccountName: FormControl = new FormControl(['']);
-  updateBalance: FormControl = new FormControl(['']);
   updateAccountDescription: FormControl = new FormControl(['']);
 
   constructor(private accountService: AccountService) { }
@@ -45,7 +47,6 @@ export class HomeComponent implements OnInit {
     this.updateFormOpen = true;
     this.createFormOpen = false;
     this.updateAccountName.setValue("");
-    this.updateBalance.setValue(['']);
     this.updateAccountDescription.setValue(['']);
   }
 
@@ -53,7 +54,6 @@ export class HomeComponent implements OnInit {
     this.createFormOpen = true;
     this.updateFormOpen = false;
     this.updateAccountName.setValue("");
-    this.updateBalance.setValue("");
     this.updateAccountDescription.setValue("");
   }
 
@@ -75,29 +75,35 @@ export class HomeComponent implements OnInit {
   //Need to add validation (broken up from upsert method)
   insertAccount(name: string, balance: number, description: string) {
     this.updateAccountName.setValue("");
-    this.updateBalance.setValue("");
     this.updateAccountDescription.setValue("");
-    this.userAccount = new Account(0, name, balance, description, null);
-    this.accountService.insertAccount(this.userAccount).subscribe({
-      next: (response) => {
-        //this.accountService.getSingleAccount();
-        this.createFormOpen = false;
-      },
-      complete: () => {
-        this.getAllAccounts();
-      }
-    })
+    if (balance > 1) {
+      this.balanceIsNegative = false;
+      this.userAccount = new Account(0, name, balance, description, null);
+      this.accountService.insertAccount(this.userAccount).subscribe({
+        next: (response) => {
+          this.createFormOpen = false;
+        },
+        complete: () => {
+          this.getAllAccounts();
+        }
+      })
+    } else {
+      this.balanceIsNegative = true;
+      this.balanceMessage = "Your new account must at least have a balance of 1 dollar.";
+      return
+    }
   }
 
   updateAccount(accountId: number, name: string, balance: number, description: string) {
     this.updateAccountName.setValue("");
-    this.updateBalance.setValue("");
     this.updateAccountDescription.setValue("");
-    this.userAccount = new Account(accountId, name, balance, description, null);
+
+    this.balanceIsNegative = false;
+    this.userAccount = new Account(this.selectedAccountId, name, 0, description, null);
     this.accountService.updateAccount(this.userAccount).subscribe({
       next: (response) => {
-        //this.accountService.getSingleAccount();
         this.updateFormOpen = false;
+
       },
       error: () => {
         this.accountMessage = 'Account was not successfully saved!';
@@ -106,7 +112,10 @@ export class HomeComponent implements OnInit {
         this.getAllAccounts();
 
       }
+
     })
+
+
   }
 
   attemptUpsertAccount(name: string, balance: number, description: string) {
