@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
   constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
+
     this.getAllAccounts();
   }
 
@@ -50,6 +51,34 @@ export class HomeComponent implements OnInit {
     //These booleans act off each other. The first one opens the update form and the second one closes the create form.
     this.updateAccountName.setValue("");
     this.updateAccountDescription.setValue(['']);
+
+    // this.accountService.setActiveUser();
+    // this.accountService.getAccount().subscribe({
+    //   next: (response) => {
+    //     this.userAccount = new Account(
+    //       response.id,
+    //       response.name,
+    //       response.balance,
+    //       response.description,
+    //       response.creationDate
+    //     );
+    //   },
+    //   error: () => {
+    //     this.accountMessage = "No account was found, please create one!"
+    //   },
+    //   complete: () => {
+    //     this.accountMessage = "Account was successfully retrieved from the database."
+    //     this.accountExists = true;
+    //     const num = this.userAccount.balance;
+    //     this.userAccount.balance = +num.toFixed(2);
+    //     this.accountName.setValue(this.userAccount.name);
+    //     this.balance.setValue(this.userAccount.balance);
+    //     this.accountDescription.setValue(this.userAccount.description);
+    //     this.accountService.accountId = ''+this.userAccount.id;
+    //     localStorage.setItem('current-account', ''+this.userAccount.id);
+    //   }
+    // });
+
   }
 
   openCreateForm() {
@@ -70,7 +99,7 @@ export class HomeComponent implements OnInit {
           this.accountExists = false;
           this.accountMissing = true;
           //These booleans are similar to the ones before
-          
+
         } else if (response.length === 1) {
           this.accountMessage = "Your account has successfully been retrieved from the database!"
           this.accountExists = true;

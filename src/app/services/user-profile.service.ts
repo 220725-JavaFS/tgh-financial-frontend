@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from '../models/user';
 import { UserProfile } from '../models/user-profile';
 
 @Injectable({
@@ -40,4 +41,5 @@ export class UserProfileService {
   getUserProfile(url: string): Observable<UserProfile> {
     return this.http.get<UserProfile>(url, this.options);
   }
+
 }
