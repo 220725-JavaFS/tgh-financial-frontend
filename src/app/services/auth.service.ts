@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { PasswordResetComponent } from '../components/password-reset/password-reset.component';
 import { User } from '../models/user';
+import { DarkmodeService } from './darkmode.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class AuthService {
   authUrl: string = environment.url+'auth';
   loggedIn: boolean = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private darkmode: DarkmodeService) { }
 
   //Testing Example in corresponding spec.ts
   login(email: string, password: string): Observable<User> {
@@ -29,6 +29,9 @@ export class AuthService {
   }
 
   logout(): void{
+    localStorage.removeItem('current-user');
+    localStorage.removeItem('current-account');
+    this.darkmode.changeMode('false');
     this.http.post(`${this.authUrl}/logout`, null);
   }
 

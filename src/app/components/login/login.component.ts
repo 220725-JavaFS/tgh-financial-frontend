@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   noticeMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router, private darkmode: DarkmodeService) { }
+  constructor(private authService: AuthService, private router: Router, private darkmode: DarkmodeService) { 
+  }
 
   ngOnInit(): void {
   }
@@ -26,11 +27,10 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: (response) => {
         localStorage.setItem('current-user', ''+response.id);
-        let dm = ''+response.darkmode;
+        let dm = ''+response.darkmode; 
+        this.darkmode.changeMode(dm);
         console.log(dm)
-        if(localStorage.getItem('dark-mode') != dm){
-          localStorage.setItem('dark-mode', dm)
-        }
+       
       },
       error: (err) => {
         if(err.status == 400) {
@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
         this.authService.loggedIn = true;
         
         this.router.navigateByUrl('/home');
+        
       }
     })
   }
