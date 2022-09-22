@@ -61,7 +61,7 @@ export class AccountComponent implements OnInit {
   openCreateForm() {
     this.createFormOpen = true;
   }
-
+//Unchanged
   getAllTransactions() {
     this.accountService.getTransactions(this.accountId).subscribe({
       next: (resp) => {
@@ -80,14 +80,13 @@ export class AccountComponent implements OnInit {
     }
     );
   }
-
+ //Is used on Init when called on the account component. 
   getAccount() {
     this.accountService.getAccount(this.accountId).subscribe({
       next: (response) => {
-        console.log(localStorage.getItem("current-account"));
-        console.log(response);
+
         this.userAccount = response;
-        console.log(this.userAccount);
+
       },
       error: () => {
         this.accountMessage = "No account was found, please create one!"

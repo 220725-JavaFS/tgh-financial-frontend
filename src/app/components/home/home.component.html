@@ -11,7 +11,12 @@
         [routerLink]="['/account']">Account Details</button>
       <h1 *ngIf="accountExists">Balance: ${{accounts.balance}}</h1>
     </div>
-    <p>{{accountMessage}}</p>
+    <div *ngIf="accountExists">
+      <p>{{accountMessage}}</p>
+    </div>
+    <div *ngIf="accountMissing">
+      <p>{{accountMessage}}</p>
+    </div>
 
     <button class="btn btn-outline-primary btn-lg" (click)="openCreateForm();">Open Account</button>
 
@@ -40,11 +45,11 @@
     <form class="input-form" *ngIf="updateFormOpen">
       <br>
       <div class="input-group mb-3">
-        <h6>Account Id: </h6>
+        <span class="input-group-text">Account Id:</span>
         <select id="accountSelect" [(ngModel)]="selectedAccountId" name="selectedAccount">
-            <option *ngFor="let accountId of allUserAccounts" [value]="accountId.id">
-               {{accountId.id}}
-            </option>
+          <option *ngFor="let accountId of allUserAccounts" [value]="accountId.id">
+            {{accountId.id}}
+          </option>
         </select>
         <input type="text" class="form-control" [formControl]="accountName" placeholder="Account Name" id="basic-name"
           aria-describedby="basic-addon3" required>

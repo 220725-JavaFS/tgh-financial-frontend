@@ -23,10 +23,6 @@ export class AccountService {
     return this.http.get<Account[]>(this.accountUrl+ `/user/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
 
-   getSingleAccount(): Observable<Account> {
-    return this.http.get<Account>(this.accountUrl+ `/${this.accountId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
-   }
-
    getAccount(accountId:string): Observable<Account> {
     return this.http.get<Account>(this.accountUrl+ `/${accountId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
@@ -45,11 +41,6 @@ export class AccountService {
     environment.headers['Current-User'] = this.userId;
     return this.http.put<Account>(this.accountUrl, account, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
-
-  //  upsertAccount(account: Account): Observable<Account> {
-  //   environment.headers['Current-User'] = this.userId;
-  //   return this.http.post<Account>(this.accountUrl, account, {headers: environment.headers, withCredentials: environment.withCredentials});
-  //  }
    
    createTransaction(accountId: string, txn: Transaction): Observable<Transaction> {
     return this.http.post<Transaction>(this.accountUrl+`/${accountId}/transaction`, txn, {headers: environment.headers, withCredentials: environment.withCredentials});
