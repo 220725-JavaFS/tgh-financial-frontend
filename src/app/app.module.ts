@@ -10,6 +10,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 // Imported a password reset component
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { PasswordResetSendEmailComponent } from './components/password-reset-send-email/password-reset-send-email.component';
@@ -23,6 +24,7 @@ import { DarkmodeComponent } from './components/darkmode/darkmode.component';
     AccountComponent,
     HomeComponent,
     NavbarComponent,
+    UserProfileComponent,
     PasswordResetComponent,
     PasswordResetSendEmailComponent,
     DarkmodeComponent
