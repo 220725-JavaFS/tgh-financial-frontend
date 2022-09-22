@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChange } from '@angular/core';
 import { Form, FormControl } from '@angular/forms';
 import { map, Observable, reduce } from 'rxjs';
 import { Account } from 'src/app/models/account';
 import { Transaction } from 'src/app/models/transaction';
 import { AccountService } from 'src/app/services/account.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-account',
@@ -18,7 +19,7 @@ export class AccountComponent implements OnInit {
   accountId: string = '';
   txnType: FormControl = new FormControl(['']);
   userAccount!: Account;
-  
+
   accountName: FormControl = new FormControl(['']);
   balance: FormControl = new FormControl(['']);
   accountDescription: FormControl = new FormControl(['']);
@@ -31,16 +32,19 @@ export class AccountComponent implements OnInit {
 
   transactions: Transaction[] = [];
 
-  allAccounts: Account[] = [];
 
-  constructor(private accountService: AccountService) { 
-    this.accountId = accountService.accountId;
+  constructor(private accountService: AccountService) {
+    this.accountId = localStorage.getItem('current-account') || '';
   }
 
   ngOnInit(): void {
     this.getAllTransactions();
     this.getAccount();
   }
+
+  // ngOnChanges(changes:SimpleChange){
+  //   this.getAccount() 
+  // }
 
   addTransaction(amount: number, description: string, type: string) {
     const txn = new Transaction(0, amount, description, type);
@@ -82,16 +86,12 @@ export class AccountComponent implements OnInit {
   }
 
   getAccount() {
-    this.accountService.getAccount().subscribe({
-      next: (response: Account[]) => {
-        this.allAccounts = response;
-        // this.userAccount = new Account(
-        //   response.id,
-        //   response.name,
-        //   response.balance,
-        //   response.description,
-        //   response.creationDate
-        // );
+    this.accountService.getAccount(this.accountId).subscribe({
+      next: (response) => {
+        console.log(localStorage.getItem("current-account"));
+        console.log(response);
+        this.userAccount = response;
+        console.log(this.userAccount);
       },
       error: () => {
         this.accountMessage = "No account was found, please create one!"
@@ -101,7 +101,8 @@ export class AccountComponent implements OnInit {
         const num = this.userAccount.balance;
         this.userAccount.balance = +num.toFixed(2);
 
-        if(num < 0) {
+
+        if (num < 0) {
           this.balanceStyle = {
             color: '#ff0000'
           }
@@ -111,9 +112,21 @@ export class AccountComponent implements OnInit {
           }
         }
 
+
         this.accountName.setValue(this.userAccount.name);
+        console.log(this.accountName.status);
         this.balance.setValue(this.userAccount.balance);
+        console.log(this.balance.status);
         this.accountDescription.setValue(this.userAccount.description);
+        console.log(this.accountDescription.status);
+
+        // if (!localStorage.getItem('foo')) { 
+        //   localStorage.setItem('foo', 'no reload') 
+        //   location.reload() 
+        // } else {
+        //   localStorage.removeItem('foo') 
+      
+        // }
       }
     });
   }
