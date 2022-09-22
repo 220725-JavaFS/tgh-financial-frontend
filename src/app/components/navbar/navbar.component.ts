@@ -26,7 +26,6 @@ export class NavbarComponent implements OnInit {
   }
 
   changeMode() {
-
     this.darkMode = localStorage.getItem('dark-mode') === "true" ? true : false;
     let dm = this.darkMode ? 'false' : 'true'
     this.modeText = this.darkMode ? 'Light Mode' : 'Dark Mode'
