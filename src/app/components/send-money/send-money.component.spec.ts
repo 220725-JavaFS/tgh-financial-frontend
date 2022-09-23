@@ -1,21 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { AccountComponent } from './account.component';
+import { SendMoneyComponent } from './send-money.component';
 
-describe('AccountComponent', () => {
-  let component: AccountComponent;
-  let fixture: ComponentFixture<AccountComponent>;
+describe('SendMoneyComponent', () => {
+  let component: SendMoneyComponent;
+  let fixture: ComponentFixture<SendMoneyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports:[HttpClientModule],
-      declarations: [ AccountComponent ]
+      declarations: [ SendMoneyComponent ]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AccountComponent);
+    fixture = TestBed.createComponent(SendMoneyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

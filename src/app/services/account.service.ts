@@ -17,28 +17,44 @@ export class AccountService {
   constructor(private http: HttpClient) {
     this.userId = localStorage.getItem('current-user') || '';
     this.accountId = localStorage.getItem('current-account') || '';
+  
    }
 
    getAccount(): Observable<Account> {
-    return this.http.get<Account>(this.accountUrl+`/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
+    return this.http.get<Account>(this.accountUrl+`/${this.userId}`, 
+    {headers: environment.headers, withCredentials: environment.withCredentials});
    }
 
    getTransactions(accountId: string): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(this.accountUrl+`/${accountId}/transaction`, {headers: environment.headers, withCredentials: environment.withCredentials});
+    return this.http.get<Transaction[]>(this.accountUrl+`/${accountId}/transaction`, 
+    {headers: environment.headers, withCredentials: environment.withCredentials});
    }
 
    upsertAccount(account: Account): Observable<Account> {
     environment.headers['Current-User'] = this.userId;
-    return this.http.post<Account>(this.accountUrl, account, {headers: environment.headers, withCredentials: environment.withCredentials});
+    return this.http.post<Account>(this.accountUrl, account, {headers: environment.headers, 
+      withCredentials: environment.withCredentials});
    }
    
    createTransaction(accountId: string, txn: Transaction): Observable<Transaction> {
-    return this.http.post<Transaction>(this.accountUrl+`/${accountId}/transaction`, txn, {headers: environment.headers, withCredentials: environment.withCredentials});
+    return this.http.post<Transaction>(this.accountUrl+`/${accountId}/transaction`, 
+    txn, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
+
+
+   sendMoneyTransaction(accountId: string, accountReceiver: string, txn: Transaction): Observable<Transaction> {
+    environment.headers['Current-User'] = this.userId;
+    console.log("send Money transaction occuring at this time");
+    return this.http.post<Transaction>(this.accountUrl+`/${accountId}/sendMoney${accountReceiver}`,
+    txn, {headers: environment.headers, withCredentials: environment.withCredentials});
+   }
+
+
 
    setActiveUser(){
     this.userId = localStorage.getItem('current-user') || '';
     this.accountId = localStorage.getItem('current-account') || '';
    }
+
 
 }

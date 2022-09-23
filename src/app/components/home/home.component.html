@@ -4,6 +4,7 @@
         <h2>My Bank Account</h2>
         <div class="account-card">
             <h2 *ngIf="accountExists">{{userAccount.name}}</h2>
+            <h4 *ngIf="accountExists">Account Number: {{userAccount.id}}</h4>
             <h4 *ngIf="accountExists">Description: {{userAccount.description}}</h4>
             <h4 *ngIf="accountExists">Created On: {{userAccount.creationDate}}</h4>
             <button class="btn btn-outline-secondary btn-lg" *ngIf="accountExists" [routerLink]="['/account']">Account Details</button>
