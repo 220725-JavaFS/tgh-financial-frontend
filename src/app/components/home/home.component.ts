@@ -51,8 +51,13 @@ export class HomeComponent implements OnInit {
     this.updateFormOpen = true;
     this.createFormOpen = false;
     //These booleans act off each other. The first one opens the update form and the second one closes the create form.
-    this.updateAccountName.setValue("");
-    this.updateAccountDescription.setValue(['']);
+    this.updateAccountDescription.reset();
+    this.accountId.reset();
+    this.accountName.reset();
+    this.balance.reset();
+    this.accountDescription.reset();
+    this.updateAccountName.reset();
+
 
     // this.accountService.setActiveUser();
     // this.accountService.getAccount().subscribe({
@@ -87,8 +92,12 @@ export class HomeComponent implements OnInit {
     this.createFormOpen = true;
     this.updateFormOpen = false;
     //These booleans act off each other. The first one opens the create form and the second one closes the update form.
-    this.updateAccountName.setValue("");
-    this.updateAccountDescription.setValue("");
+    this.updateAccountDescription.reset();
+    this.accountId.reset();
+    this.accountName.reset();
+    this.balance.reset();
+    this.accountDescription.reset();
+    this.updateAccountName.reset();
   }
   //This method is run onInit. Properly validating the amount of accounts.
   getAllAccounts() {
@@ -130,6 +139,7 @@ export class HomeComponent implements OnInit {
       this.accountService.insertAccount(this.userAccount).subscribe({
         next: (response) => {
           this.createFormOpen = false;
+          
         },
         complete: () => {
           this.getAllAccounts();

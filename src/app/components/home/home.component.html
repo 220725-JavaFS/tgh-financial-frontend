@@ -52,7 +52,7 @@
   </div>
 
 
-    <form class="input-form" *ngIf="createFormOpen">
+    <form class="input-form" *ngIf="createFormOpen" id="updateForm" #updateForm="ngForm">
       <div class="input-group mb-3">
         <input type="text" class="form-control" [formControl]="accountName" placeholder="Account Name" id="basic-name"
           aria-describedby="basic-addon3" required>
@@ -68,7 +68,7 @@
           aria-label="With textarea" required></textarea>
       </div>
       <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit"
-        (click)="insertAccount(accountName.value, balance.value, accountDescription.value);">Save</button>
+        (click)="insertAccount(accountName.value, balance.value, accountDescription.value); updateForm.resetForm()" reset >Save</button>
     </form>
 
     <form class="input-form" *ngIf="updateFormOpen">
