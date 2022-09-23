@@ -31,14 +31,10 @@ export class AccountComponent implements OnInit {
   balanceStyle = {};
 
   transactions: Transaction[] = [];
-
-<<<<<<< HEAD
-  constructor(private accountService: AccountService, private router: Router) { 
-=======
   darkMode = false;
 
-  constructor(private accountService: AccountService) { 
->>>>>>> origin/main
+
+  constructor(private accountService: AccountService, private router: Router) { 
     this.accountId = accountService.accountId;
   }
 
