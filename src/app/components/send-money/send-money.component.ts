@@ -43,6 +43,7 @@ export class SendMoneyComponent implements OnInit {
   balanceStyle = {};
 
   transactions: Transaction[] = [];
+  darkmode = false;
 
   constructor(private accountService: AccountService, private router: Router) { 
     this.accountId = accountService.accountId;

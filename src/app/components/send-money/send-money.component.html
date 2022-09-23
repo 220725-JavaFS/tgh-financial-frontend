@@ -1,6 +1,6 @@
 <app-navbar></app-navbar> 
-<div class="home-wrap">
-    <div class="account-wrap">
+<div [ngClass]="{'home-wrap':true}">
+    <div [ngClass]="{'account-wrap':true}">
         <h2>Account Details: {{accountName.value}}</h2>
         <h4>Unique ID (for transactions): {{userAccount.id}}</h4>        
         
