@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AccountService } from 'src/app/services/account.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { DarkmodeService } from 'src/app/services/darkmode.service';
 import { DarkmodeComponent } from '../darkmode/darkmode.component';
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   noticeMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router, private darkmode: DarkmodeService) { 
+  constructor(private authService: AuthService, private router: Router, private darkmode: DarkmodeService, private accountService: AccountService) { 
   }
 
   ngOnInit(): void {
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
         let dm = ''+response.darkmode; 
         this.darkmode.changeMode(dm);
         console.log(dm)
+        this.accountService.setActiveUser();
        
       },
       error: (err) => {

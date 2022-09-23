@@ -46,7 +46,8 @@ export class SendMoneyComponent implements OnInit {
   darkmode = false;
 
   constructor(private accountService: AccountService, private router: Router) { 
-    this.accountId = accountService.accountId;
+    //this.accountId = accountService.accountId;
+    this.accountId = localStorage.getItem('current-account') || '';
   }
 
   ngOnInit(): void {
@@ -117,7 +118,7 @@ export class SendMoneyComponent implements OnInit {
 
   }
   getReceiver(){
-    this.accountService.getAccount().subscribe({
+    this.accountService.getAccount(this.accountId).subscribe({
       next: (data)=>{
         this.receiverAccount=new Account(
           data.id,
@@ -135,7 +136,7 @@ export class SendMoneyComponent implements OnInit {
   }
 
   getAccount() {
-    this.accountService.getAccount().subscribe({
+    this.accountService.getAccount(this.accountId).subscribe({
       next: (response) => {
         this.userAccount = new Account(
           response.id,

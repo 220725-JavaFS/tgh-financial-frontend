@@ -12,28 +12,37 @@ export class AccountService {
 
   userId: string;
   accountUrl: string = environment.url+'account';
-  accountId: string = '';
+  accountId: string = localStorage.getItem('current-account') || '';
 
   constructor(private http: HttpClient) {
     this.userId = localStorage.getItem('current-user') || '';
     this.accountId = localStorage.getItem('current-account') || '';
   
    }
+   
+   // changing c to slash
+   getAccounts(): Observable<Account[]> {
+    return this.http.get<Account[]>(this.accountUrl+ `/user/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
+   }
 
-   getAccount(): Observable<Account> {
-    return this.http.get<Account>(this.accountUrl+`/${this.userId}`, 
-    {headers: environment.headers, withCredentials: environment.withCredentials});
+   getAccount(accountId:string): Observable<Account> {
+    return this.http.get<Account>(this.accountUrl+ `/${accountId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
 
    getTransactions(accountId: string): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(this.accountUrl+`/${accountId}/transaction`, 
     {headers: environment.headers, withCredentials: environment.withCredentials});
    }
-
-   upsertAccount(account: Account): Observable<Account> {
+   //new
+   insertAccount(account: Account): Observable<Account> {
     environment.headers['Current-User'] = this.userId;
-    return this.http.post<Account>(this.accountUrl, account, {headers: environment.headers, 
-      withCredentials: environment.withCredentials});
+    return this.http.post<Account>(this.accountUrl +"/new", account, {headers: environment.headers, withCredentials: environment.withCredentials});
+   }
+
+  //new
+   updateAccount(account: Account): Observable<Account> {
+    environment.headers['Current-User'] = this.userId;
+    return this.http.put<Account>(this.accountUrl, account, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
    
    createTransaction(accountId: string, txn: Transaction): Observable<Transaction> {
