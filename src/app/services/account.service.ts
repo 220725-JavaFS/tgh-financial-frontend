@@ -21,7 +21,7 @@ export class AccountService {
    
    // changing c to slash
    getAccounts(): Observable<Account[]> {
-    return this.http.get<Account[]>(this.accountUrl+ `/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
+    return this.http.get<Account[]>(this.accountUrl+ `/user/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
 
    getAccount(accountId:string): Observable<Account> {
