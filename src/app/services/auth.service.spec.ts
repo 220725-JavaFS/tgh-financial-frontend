@@ -6,6 +6,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
+import { User } from '../models/user';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -25,8 +26,8 @@ describe('AuthService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-<<<<<<< HEAD
-=======
+
+
 
   /**
    * tests the forgot service method
@@ -107,5 +108,5 @@ describe('AuthService', () => {
     http.expectNone(authUrl+'/logout');
   });
 
->>>>>>> origin/main
+
 });
