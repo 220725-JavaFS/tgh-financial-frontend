@@ -44,9 +44,11 @@
       <p>{{accountMessage}}</p>
     </div>
 
+    <div>
     <button class="btn btn-outline-primary btn-lg" (click)="openCreateForm();">Open Account</button>
 
     <span> <button (click)="updateForm();" class="btn btn-outline-secondary btn-lg">Update Account Info</button> </span>
+  </div>
 
 
     <form class="input-form" *ngIf="createFormOpen">
