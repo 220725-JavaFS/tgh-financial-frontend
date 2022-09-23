@@ -31,6 +31,7 @@ describe('AccountService', () => {
     expect(service).toBeTruthy();
   });
 
+  
 
 
   //Testing getAccount() service method
@@ -48,13 +49,14 @@ describe('AccountService', () => {
 
   //Testing getAccounts() service method
   it('should return all accounts for the user', (done)=>{
-    const expectedUserAccounts: Account[] = new Array;
+    const expectedUserAccounts: Account[] =   [{ 'id': 0 , 'name': '' , 'balance': 0, 'description': '', 'creationDate': ''}];
+    // localStorage.setItem('current-user', '3');
     service.getAccounts().subscribe(data => {
       expect(data).toEqual(expectedUserAccounts);
       done();
     })
-    
-    const testReq = http.expectOne(accsUrl + '');
+    // + localStorage.getItem('current-user'))
+    const testReq = http.expectOne(accsUrl + service.userId);
     testReq.flush(expectedUserAccounts);
   })
   
