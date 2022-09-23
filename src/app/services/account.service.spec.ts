@@ -11,7 +11,7 @@ describe('AccountService', () => {
   let http: HttpTestingController;
   let accUrl: string = environment.url+'account/';
   //accs url need to change number at end and for transUrl 
-  let accsUrl: string = environment.url + 'account/' + '1';
+  let accsUrl: string = environment.url + 'account/';
   let transUrl: string = environment.url + 'account/' + '' + '/transaction';
   let insUrl: string  = environment.url + 'account/' + 'new';
   let updateUrl: string = environment.url+'account';
@@ -53,13 +53,14 @@ describe('AccountService', () => {
       expect(data).toEqual(expectedUserAccounts);
       done();
     })
-    const testReq = http.expectOne(accsUrl);
+    
+    const testReq = http.expectOne(accsUrl + '');
     testReq.flush(expectedUserAccounts);
   })
   
   
   
-  //Testubg getTransactions() service method 
+  //Testing getTransactions() service method 
   it('should return all transactions for a given account', (done) => {
     const expectedTransactions:Transaction[] = new Array;
     service.getTransactions('').subscribe(data => {
@@ -103,6 +104,5 @@ describe('AccountService', () => {
     const testReq = http.expectOne(transUrl);
     testReq.flush(newTrans); 
   })
-  
 
 });
