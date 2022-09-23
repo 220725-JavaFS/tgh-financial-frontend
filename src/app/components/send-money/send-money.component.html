@@ -10,7 +10,7 @@
           <form class="input-form" *ngIf="createFormOpen">
                 <div class="input-group mb-3">   
                   <h6>Receiver Details: {{receiverName.value}}</h6>
-                  <input type="text" placeholder="Account Id" [formControl]="receiverAccountId">
+                  <input type="text" placeholder="Account Number" [formControl]="receiverAccountId">
                   <span class="input-group-text">$</span>
                   <input type="number" placeholder="Amount" [formControl]="txnAmount" class="form-control" aria-label="Amount (to the nearest dollar)">
                 </div>
