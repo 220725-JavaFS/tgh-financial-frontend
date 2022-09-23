@@ -31,6 +31,8 @@ export class AccountComponent implements OnInit {
   balanceStyle = {};
 
   transactions: Transaction[] = [];
+  darkMode = false;
+
 
   constructor(private accountService: AccountService, private router: Router) { 
     this.accountId = accountService.accountId;

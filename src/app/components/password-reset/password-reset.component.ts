@@ -19,7 +19,7 @@ export class PasswordResetComponent implements OnInit {
   confirmPassword: FormControl = new FormControl(['']);
   noticeMessage: string = '';
   noticeMessage2: string = '';
-  tokenUser: TokenUser = new TokenUser(0, '', new Date(), new User(0,'', ''));
+  tokenUser: TokenUser = new TokenUser(0, '', new Date(), new User(0,'', '', false));
   
 
   constructor(

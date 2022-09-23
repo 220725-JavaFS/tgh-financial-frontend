@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
-<div class="home-wrap">
-    <div class="account-wrap">
+<div [ngClass]="{'home-wrap':true}">
+    <div [ngClass]="{'account-wrap':true}">
         <h2>My Bank Account</h2>
         <div class="account-card">
             <h2 *ngIf="accountExists">{{userAccount.name}}</h2>

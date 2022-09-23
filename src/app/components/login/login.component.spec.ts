@@ -1,11 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-<<<<<<< HEAD
 import { HttpClientModule } from '@angular/common/http';
-=======
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 import { Observable, of } from 'rxjs';
->>>>>>> origin/main
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
@@ -22,17 +19,13 @@ describe('LoginComponent', () => {
 
     serviceSpy.login.withArgs('testuser@gmail.com', 'password')
       .and
-      .returnValue(of(new User(1, 'testuser@gmail.com', 'password'))
+      .returnValue(of(new User(1, 'testuser@gmail.com', 'password', false))
     );
 
     await TestBed.configureTestingModule({
-<<<<<<< HEAD
       imports:[HttpClientModule],
-      declarations: [ LoginComponent ]
-=======
       declarations: [ LoginComponent ],
       providers: [{provide: AuthService, useValue: serviceSpy}]
->>>>>>> origin/main
     })
     .compileComponents();
 

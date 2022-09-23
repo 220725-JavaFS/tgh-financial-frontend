@@ -1,10 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-<<<<<<< HEAD
 import { HttpClientModule } from '@angular/common/http';
-=======
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
->>>>>>> origin/main
 import { RegisterComponent } from './register.component';
 import { of } from 'rxjs';
 
@@ -30,7 +27,7 @@ describe('RegisterComponent', () => {
     service.login
     .withArgs('testuser@gmail.com', 'password')
     .and
-    .returnValue(of(new User(1, 'testuser@gmail.com', 'password')));
+    .returnValue(of(new User(1, 'testuser@gmail.com', 'password', false)));
 
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
