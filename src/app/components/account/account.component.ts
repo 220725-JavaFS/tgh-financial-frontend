@@ -32,19 +32,20 @@ export class AccountComponent implements OnInit {
 
   transactions: Transaction[] = [];
 
+  darkMode = false;
 
   constructor(private accountService: AccountService) {
     this.accountId = localStorage.getItem('current-account') || '';
+
+  // constructor(private accountService: AccountService) { 
+  //   this.accountId = accountService.accountId;
+
   }
 
   ngOnInit(): void {
     this.getAllTransactions();
     this.getAccount();
   }
-
-  // ngOnChanges(changes:SimpleChange){
-  //   this.getAccount() 
-  // }
 
   addTransaction(amount: number, description: string, type: string) {
     const txn = new Transaction(0, amount, description, type);
@@ -65,7 +66,7 @@ export class AccountComponent implements OnInit {
   openCreateForm() {
     this.createFormOpen = true;
   }
-
+//Unchanged
   getAllTransactions() {
     this.accountService.getTransactions(this.accountId).subscribe({
       next: (resp) => {
@@ -84,14 +85,13 @@ export class AccountComponent implements OnInit {
     }
     );
   }
-
+ //Is used on Init when called on the account component. 
   getAccount() {
     this.accountService.getAccount(this.accountId).subscribe({
       next: (response) => {
-        console.log(localStorage.getItem("current-account"));
-        console.log(response);
+
         this.userAccount = response;
-        console.log(this.userAccount);
+
       },
       error: () => {
         this.accountMessage = "No account was found, please create one!"
@@ -112,21 +112,10 @@ export class AccountComponent implements OnInit {
           }
         }
 
-
         this.accountName.setValue(this.userAccount.name);
-        console.log(this.accountName.status);
         this.balance.setValue(this.userAccount.balance);
-        console.log(this.balance.status);
         this.accountDescription.setValue(this.userAccount.description);
-        console.log(this.accountDescription.status);
 
-        // if (!localStorage.getItem('foo')) { 
-        //   localStorage.setItem('foo', 'no reload') 
-        //   location.reload() 
-        // } else {
-        //   localStorage.removeItem('foo') 
-      
-        // }
       }
     });
   }

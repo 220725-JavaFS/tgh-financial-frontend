@@ -1,8 +1,13 @@
 <app-navbar></app-navbar>
+<<<<<<< HEAD
 <div class="home-wrap">
     <div class="account-wrap">
         <h2 >Account Details: {{accountName.value}}</h2>
-        <!-- [formControl]="" -->
+=======
+<div [ngClass]="{'home-wrap':true}">
+    <div [ngClass]="{'account-wrap':true}">
+        <h2>Account Details: {{accountName.value}}</h2>
+>>>>>>> origin/main
         <h2 id="balance" [style]="balanceStyle">Balance: ${{balance.value}}</h2>
         <button class="btn btn-outline-primary btn-lg" *ngIf="!createFormOpen" (click)="openCreateForm();">Add Transaction</button>
           <form class="input-form" *ngIf="createFormOpen">
@@ -12,7 +17,7 @@
                     <option value="Income">Income (+)</option>
                   </select>            
                   <span class="input-group-text">$</span>
-                  <input type="number" placeholder="Amount" [formControl]="txnAmount" class="form-control" aria-label="Amount (to the nearest dollar)">
+                  <input type="number" placeholder="Amount" [formControl]="txnAmount" min="1" class="form-control" aria-label="Amount (to the nearest dollar)">
                 </div>
                 <div class="input-group">
                   <textarea class="form-control" [formControl]="txnDescription" placeholder="Account Description..." aria-label="With textarea"></textarea>

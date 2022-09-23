@@ -11,11 +11,15 @@ import { AccountService } from 'src/app/services/account.service';
 export class HomeComponent implements OnInit {
 
   accountExists: boolean = false;
+  accountMissing: boolean = false;
   createFormOpen: boolean = false;
   updateFormOpen: boolean = false;
+  balanceIsNegative: boolean = false;
+  balanceMessage: string = '';
   userAccount!: Account;
   allUserAccounts: Account[] = [];
   currentAccountId: number = 0;
+  selectedAccountId: number = 0;
 
   accountMessage: string = '';
 
@@ -25,114 +29,137 @@ export class HomeComponent implements OnInit {
   accountDescription: FormControl = new FormControl(['']);
 
   updateAccountName: FormControl = new FormControl(['']);
-  updateBalance: FormControl = new FormControl(['']);
   updateAccountDescription: FormControl = new FormControl(['']);
 
   constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
+
     this.getAllAccounts();
   }
 
   changeCurrentAccountId(uniqueAccountId: number) {
     this.currentAccountId = uniqueAccountId;
     localStorage.setItem('current-account', '' + this.currentAccountId);
-    console.log(this.currentAccountId);
+    //This method is very important. Sets the account Id when clicking the "Account Details" button
   }
 
 
   updateForm() {
     this.updateFormOpen = true;
     this.createFormOpen = false;
+    //These booleans act off each other. The first one opens the update form and the second one closes the create form.
     this.updateAccountName.setValue("");
-    this.updateBalance.setValue(['']);
     this.updateAccountDescription.setValue(['']);
+
+    // this.accountService.setActiveUser();
+    // this.accountService.getAccount().subscribe({
+    //   next: (response) => {
+    //     this.userAccount = new Account(
+    //       response.id,
+    //       response.name,
+    //       response.balance,
+    //       response.description,
+    //       response.creationDate
+    //     );
+    //   },
+    //   error: () => {
+    //     this.accountMessage = "No account was found, please create one!"
+    //   },
+    //   complete: () => {
+    //     this.accountMessage = "Account was successfully retrieved from the database."
+    //     this.accountExists = true;
+    //     const num = this.userAccount.balance;
+    //     this.userAccount.balance = +num.toFixed(2);
+    //     this.accountName.setValue(this.userAccount.name);
+    //     this.balance.setValue(this.userAccount.balance);
+    //     this.accountDescription.setValue(this.userAccount.description);
+    //     this.accountService.accountId = ''+this.userAccount.id;
+    //     localStorage.setItem('current-account', ''+this.userAccount.id);
+    //   }
+    // });
+
   }
 
   openCreateForm() {
     this.createFormOpen = true;
     this.updateFormOpen = false;
+    //These booleans act off each other. The first one opens the create form and the second one closes the update form.
     this.updateAccountName.setValue("");
-    this.updateBalance.setValue("");
     this.updateAccountDescription.setValue("");
   }
-
+  //This method is run onInit. Properly validating the amount of accounts.
   getAllAccounts() {
     this.accountService.getAccounts().subscribe({
       next: (response: Account[]) => {
         this.allUserAccounts = response;
+
+        if (response.length == 0) {
+          this.accountMessage = "No account was found, please create one!"
+          this.accountExists = false;
+          this.accountMissing = true;
+          //These booleans are similar to the ones before
+
+        } else if (response.length === 1) {
+          this.accountMessage = "Your account has successfully been retrieved from the database!"
+          this.accountExists = true;
+          this.accountMissing = false;
+        } else {
+
+          this.accountMessage = "Your accounts were successfully retrieved from the database!"
+          this.accountExists = true;
+          this.accountMissing = false;
+        }
+
       },
       error: () => {
         this.accountMessage = "No account was found, please create one!"
-      },
-      complete: () => {
-        this.accountMessage = "Account was successfully retrieved from the database."
-        this.accountExists = true;
       }
     });
   }
 
-  //Need to add validation (broken up from upsert method)
+  //Validation added
   insertAccount(name: string, balance: number, description: string) {
     this.updateAccountName.setValue("");
-    this.updateBalance.setValue("");
     this.updateAccountDescription.setValue("");
-    this.userAccount = new Account(0, name, balance, description, null);
-    this.accountService.insertAccount(this.userAccount).subscribe({
-      next: (response) => {
-        //this.accountService.getSingleAccount();
-        this.createFormOpen = false;
-      },
-      complete: () => {
-        this.getAllAccounts();
-      }
-    })
+    if (balance >= 1) {
+      this.balanceIsNegative = false;
+      this.userAccount = new Account(0, name, balance, description, null);
+      this.accountService.insertAccount(this.userAccount).subscribe({
+        next: (response) => {
+          this.createFormOpen = false;
+        },
+        complete: () => {
+          this.getAllAccounts();
+        }
+      })
+    } else {
+      this.balanceIsNegative = true;
+      this.balanceMessage = "Your new account must at least have a balance of 1 dollar.";
+    }
   }
 
   updateAccount(accountId: number, name: string, balance: number, description: string) {
     this.updateAccountName.setValue("");
-    this.updateBalance.setValue("");
     this.updateAccountDescription.setValue("");
-    this.userAccount = new Account(accountId, name, balance, description, null);
+
+    this.balanceIsNegative = false;
+    this.userAccount = new Account(this.selectedAccountId, name, 0, description, null);
     this.accountService.updateAccount(this.userAccount).subscribe({
       next: (response) => {
-        //this.accountService.getSingleAccount();
         this.updateFormOpen = false;
+
       },
       error: () => {
         this.accountMessage = 'Account was not successfully saved!';
       },
       complete: () => {
         this.getAllAccounts();
-
       }
+
     })
+
+
   }
 
-  attemptUpsertAccount(name: string, balance: number, description: string) {
-    if (!this.userAccount) {
-      this.userAccount = new Account(0, name, balance, description, null);
-    } else {
-      this.userAccount.name = name;
-      this.userAccount.balance = balance;
-      this.userAccount.description = description;
-    }
-
-    this.accountService.insertAccount(this.userAccount,).subscribe({
-      next: (response) => {
-        this.userAccount.id = response.id;
-        this.userAccount.creationDate = response.creationDate;
-      },
-      error: () => {
-        this.accountMessage = 'Account was not successfully saved!';
-      },
-      complete: () => {
-        this.accountExists = true;
-        this.createFormOpen = false;
-        this.accountMessage = 'Account was saved!';
-        this.accountService.accountId = '' + this.userAccount.id;
-        localStorage.setItem('current-account', '' + this.userAccount.id);
-      }
-    })
-  }
 }
