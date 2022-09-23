@@ -25,11 +25,8 @@ import { PasswordResetSendEmailComponent } from './components/password-reset-sen
     AccountComponent,
     HomeComponent,
     NavbarComponent,
-<<<<<<< HEAD
     SendMoneyComponent,
-=======
     UserProfileComponent,
->>>>>>> origin/main
     PasswordResetComponent,
     PasswordResetSendEmailComponent
   ],
