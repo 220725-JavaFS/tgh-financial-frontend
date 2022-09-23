@@ -1,26 +1,33 @@
 import { TestBed } from '@angular/core/testing';
+
+import { HttpClientModule } from '@angular/common/http';
+
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
 import { AuthService } from './auth.service';
-import { User } from '../models/user';
 import { environment } from 'src/environments/environment';
+import { User } from '../models/user';
 
 describe('AuthService', () => {
   let service: AuthService;
   let http: HttpTestingController;
   let authUrl: string = environment.url+'auth';
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports:[HttpClientTestingModule],
       providers: [AuthService]
-    });
-    http = TestBed.inject(HttpTestingController);
+    }).compileComponents();
+    http = TestBed.inject(HttpTestingController)
     service = TestBed.inject(AuthService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+
 
   /**
    * tests the forgot service method
@@ -100,5 +107,6 @@ describe('AuthService', () => {
     service.logout();
     http.expectNone(authUrl+'/logout');
   });
+
 
 });

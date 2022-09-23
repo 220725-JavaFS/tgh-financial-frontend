@@ -10,15 +10,11 @@ html, body {
     height:100vh;
     justify-content: center;
     align-items: center;
-    margin: 0;
-   
 }
 
 .app-wrap2 {
     width: 100;
-    height:100;
+    height: 100;
     justify-content: center;
     align-items: center;
-    margin: 0;
-   
 }
