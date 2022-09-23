@@ -11,7 +11,7 @@ describe('AccountService', () => {
   let http: HttpTestingController;
   let accUrl: string = environment.url+'account/';
   //accs url need to change number at end and for transUrl 
-  let accsUrl: string = environment.url + 'account/';
+  let accsUrl: string = environment.url + 'account/user/';
   let transUrl: string = environment.url + 'account/' + '' + '/transaction';
   let insUrl: string  = environment.url + 'account/' + 'new';
   let updateUrl: string = environment.url+'account';
