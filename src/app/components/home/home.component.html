@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
-<div class="home-wrap">
-  <div class="account-wrap">
+<div [ngClass]="{'home-wrap':true}">
+  <div [ngClass]="{'account-wrap':true}">
     <h2>My Bank Accounts</h2>
     <div *ngFor="let accounts of allUserAccounts" class="account-card">
       <h2 *ngIf="accountExists">{{accounts.name}}</h2>
@@ -11,7 +11,7 @@
         [routerLink]="['/account']">Account Details</button>
       <h1 *ngIf="accountExists">Balance: ${{accounts.balance}}</h1>
 
-<!-- <div [ngClass]="{'home-wrap':true}">
+      <!-- <div [ngClass]="{'home-wrap':true}">
     <div [ngClass]="{'account-wrap':true}">
         <h2>My Bank Account</h2>
         <div class="account-card">
@@ -72,7 +72,7 @@
       <br>
       <div class="input-group mb-3">
         <span class="input-group-text">Account Id:</span>
-        <select id="accountSelect" [(ngModel)]="selectedAccountId" name="selectedAccount">
+        <select id="accountSelect" [(ngModel)]="selectedAccountId" name="selectedAccount" required>
           <option *ngFor="let accountId of allUserAccounts" [value]="accountId.id">
             {{accountId.id}}
           </option>
@@ -90,6 +90,9 @@
     </form>
     <div *ngIf="balanceIsNegative">
       <p class="error-message">{{balanceMessage}}</p>
+    </div>
+    <div *ngIf="selectedAccountError">
+      <p class="error-message">{{accountIdMessage}}</p>
     </div>
 
   </div>

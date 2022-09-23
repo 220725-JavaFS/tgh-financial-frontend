@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   createFormOpen: boolean = false;
   updateFormOpen: boolean = false;
   balanceIsNegative: boolean = false;
+  selectedAccountError: boolean = false;
   balanceMessage: string = '';
   userAccount!: Account;
   allUserAccounts: Account[] = [];
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit {
   selectedAccountId: number = 0;
 
   accountMessage: string = '';
+  accountIdMessage: string = '';
 
   accountId: FormControl = new FormControl(['']);
   accountName: FormControl = new FormControl(['']);
@@ -140,8 +142,16 @@ export class HomeComponent implements OnInit {
   }
 
   updateAccount(accountId: number, name: string, balance: number, description: string) {
+    this.selectedAccountError = false;
     this.updateAccountName.setValue("");
     this.updateAccountDescription.setValue("");
+
+    if(this.selectedAccountId == 0){
+      this.selectedAccountError = true;
+      this.accountIdMessage = "Please select an Account Id!";
+      return;
+      
+    }
 
     this.balanceIsNegative = false;
     this.userAccount = new Account(this.selectedAccountId, name, 0, description, null);
