@@ -18,9 +18,10 @@ export class AccountService {
     this.userId = localStorage.getItem('current-user') || '';
     this.accountId = localStorage.getItem('current-account') || '';
    }
-
+   
+   // changing c to slash
    getAccounts(): Observable<Account[]> {
-    return this.http.get<Account[]>(this.accountUrl+ `/user/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
+    return this.http.get<Account[]>(this.accountUrl+ `/${this.userId}`, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
 
    getAccount(accountId:string): Observable<Account> {
