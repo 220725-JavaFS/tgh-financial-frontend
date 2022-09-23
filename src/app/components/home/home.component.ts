@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Account } from 'src/app/models/account';
+import { Transaction } from 'src/app/models/transaction';
 import { AccountService } from 'src/app/services/account.service';
 
 @Component({
@@ -9,7 +10,14 @@ import { AccountService } from 'src/app/services/account.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  receiverId: FormControl = new FormControl(['']);
+  senderId: FormControl = new FormControl(['']);
 
+  
+  receiverAccountId: FormControl = new FormControl(['']);
+  transferMoneyOpen: boolean = false;
+  txnAmount: FormControl = new FormControl(['']);
+  txnDescription: FormControl = new FormControl(['']);
   accountExists: boolean = false;
   accountMissing: boolean = false;
   createFormOpen: boolean = false;
@@ -50,6 +58,7 @@ export class HomeComponent implements OnInit {
   updateForm() {
     this.updateFormOpen = true;
     this.createFormOpen = false;
+    this.transferMoneyOpen = false;
     //These booleans act off each other. The first one opens the update form and the second one closes the create form.
     this.updateAccountDescription.reset();
     this.accountId.reset();
@@ -57,40 +66,29 @@ export class HomeComponent implements OnInit {
     this.balance.reset();
     this.accountDescription.reset();
     this.updateAccountName.reset();
-
-
-    // this.accountService.setActiveUser();
-    // this.accountService.getAccount().subscribe({
-    //   next: (response) => {
-    //     this.userAccount = new Account(
-    //       response.id,
-    //       response.name,
-    //       response.balance,
-    //       response.description,
-    //       response.creationDate
-    //     );
-    //   },
-    //   error: () => {
-    //     this.accountMessage = "No account was found, please create one!"
-    //   },
-    //   complete: () => {
-    //     this.accountMessage = "Account was successfully retrieved from the database."
-    //     this.accountExists = true;
-    //     const num = this.userAccount.balance;
-    //     this.userAccount.balance = +num.toFixed(2);
-    //     this.accountName.setValue(this.userAccount.name);
-    //     this.balance.setValue(this.userAccount.balance);
-    //     this.accountDescription.setValue(this.userAccount.description);
-    //     this.accountService.accountId = ''+this.userAccount.id;
-    //     localStorage.setItem('current-account', ''+this.userAccount.id);
-    //   }
-    // });
-
   }
+    transferMoney() {
+      this.transferMoneyOpen = true;
+        this.updateFormOpen = false;
+        this.createFormOpen = false;
+        //These booleans act off each other. The first one opens the update form and the second one closes the create form.
+        this.updateAccountDescription.reset();
+        this.accountId.reset();
+        this.accountName.reset();
+        this.balance.reset();
+        this.accountDescription.reset();
+        this.updateAccountName.reset();
+    }
+
+    
+   
+
+  
 
   openCreateForm() {
     this.createFormOpen = true;
     this.updateFormOpen = false;
+    this.transferMoneyOpen = false;
     //These booleans act off each other. The first one opens the create form and the second one closes the update form.
     this.updateAccountDescription.reset();
     this.accountId.reset();
@@ -179,6 +177,30 @@ export class HomeComponent implements OnInit {
 
     })
 
+
+  }
+
+  sendTransferMoney(amount: number, description: string, receiverId: number, senderId:number) {
+    localStorage.setItem('current-account', '' + this.userAccount.id);
+    let senderIdString: string = `${senderId}`;
+    let receiverIdString: string = `${receiverId}`;
+    console.log(this.accountId);
+    console.log(receiverId);
+    const type: string = 'Expense';
+    const txn = new Transaction(0, amount, description, type);
+    console.log(txn);
+    //this.accountService.createTransaction(this.receiverEmail, txn)
+    this.accountService.sendMoneyTransaction(senderIdString, receiverIdString, txn).subscribe({
+      next: () => {
+        console.log("In send money");
+
+      },
+      complete: () => {
+        
+
+
+      }
+    });
 
   }
 
