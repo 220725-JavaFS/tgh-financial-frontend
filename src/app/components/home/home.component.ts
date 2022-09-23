@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
+    this.accountService.setActiveUser();
     this.accountService.getAccount().subscribe({
       next: (response) => {
         this.userAccount = new Account(

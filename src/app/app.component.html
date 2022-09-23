@@ -1,1 +1,8 @@
+<div [ngClass]="{'app-wrap':true, 'bg-dark text-light':darkMode, 'bg-light text-dark':!darkMode}">
+
+    <app-darkmode (modeChangeEvent)="darkMode=$event"> </app-darkmode>
+
+
+
 <router-outlet></router-outlet>
+</div>

@@ -32,7 +32,13 @@ export class AccountComponent implements OnInit {
 
   transactions: Transaction[] = [];
 
+<<<<<<< HEAD
   constructor(private accountService: AccountService, private router: Router) { 
+=======
+  darkMode = false;
+
+  constructor(private accountService: AccountService) { 
+>>>>>>> origin/main
     this.accountId = accountService.accountId;
   }
 

@@ -19,7 +19,7 @@ describe('LoginComponent', () => {
 
     serviceSpy.login.withArgs('testuser@gmail.com', 'password')
       .and
-      .returnValue(of(new User(1, 'testuser@gmail.com', 'password'))
+      .returnValue(of(new User(1, 'testuser@gmail.com', 'password', false))
     );
 
     await TestBed.configureTestingModule({

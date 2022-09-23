@@ -41,6 +41,7 @@ export class AccountService {
     txn, {headers: environment.headers, withCredentials: environment.withCredentials});
    }
 
+<<<<<<< HEAD
    sendMoneyTransaction(accountId: string, accountReceiver: string, txn: Transaction): Observable<Transaction> {
     environment.headers['Current-User'] = this.userId;
     console.log("send Money transaction occuring at this time");
@@ -49,4 +50,11 @@ export class AccountService {
    }
 
 
+=======
+   setActiveUser(){
+    this.userId = localStorage.getItem('current-user') || '';
+    this.accountId = localStorage.getItem('current-account') || '';
+   }
+
+>>>>>>> origin/main
 }
