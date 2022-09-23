@@ -1,29 +1,40 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, SimpleChange } from '@angular/core';
-import { Form, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AccountService } from 'src/app/services/account.service';
+import { HttpClient } from '@angular/common/http';
+import { Form, FormControl } from '@angular/forms';
 import { map, Observable, reduce } from 'rxjs';
 import { Account } from 'src/app/models/account';
 import { Transaction } from 'src/app/models/transaction';
-import { AccountService } from 'src/app/services/account.service';
-import { environment } from 'src/environments/environment';
+import {User} from 'src/app/models/user';
+
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  selector: 'app-send-money',
+  templateUrl: './send-money.component.html',
+  styleUrls: ['./send-money.component.css']
 })
-export class AccountComponent implements OnInit {
+export class SendMoneyComponent implements OnInit {
 
   txnAmount: FormControl = new FormControl(['']);
   txnDescription: FormControl = new FormControl(['']);
   accountId: string = '';
   txnType: FormControl = new FormControl(['']);
   userAccount!: Account;
-
+  
   accountName: FormControl = new FormControl(['']);
   balance: FormControl = new FormControl(['']);
   accountDescription: FormControl = new FormControl(['']);
+  balance2: number = 0;
+
+
+  receiverEmail:string='';
+  receiverUser!: User;
+  receiverAccount!:Account;
+  receiverName: FormControl = new FormControl(['']);
+  receiverBalance: FormControl = new FormControl(['']);
+  receiverDescription: FormControl = new FormControl(['']);
+  receiverAccountId:  FormControl = new FormControl(['']);
 
   transactionsExists: boolean = false;
   createFormOpen: boolean = false;
@@ -32,19 +43,17 @@ export class AccountComponent implements OnInit {
   balanceStyle = {};
 
   transactions: Transaction[] = [];
-  darkMode = false;
+  darkmode = false;
 
-  constructor(private accountService: AccountService, private router: Router) {
+  constructor(private accountService: AccountService, private router: Router) { 
+    //this.accountId = accountService.accountId;
     this.accountId = localStorage.getItem('current-account') || '';
-
-  // constructor(private accountService: AccountService) { 
-  //   this.accountId = accountService.accountId;
-
   }
 
   ngOnInit(): void {
     this.getAllTransactions();
     this.getAccount();
+    this.openCreateForm();
   }
 
   addTransaction(amount: number, description: string, type: string) {
@@ -66,7 +75,7 @@ export class AccountComponent implements OnInit {
   openCreateForm() {
     this.createFormOpen = true;
   }
-//Unchanged
+
   getAllTransactions() {
     this.accountService.getTransactions(this.accountId).subscribe({
       next: (resp) => {
@@ -85,13 +94,57 @@ export class AccountComponent implements OnInit {
     }
     );
   }
- //Is used on Init when called on the account component. 
+  
+  sendReceiverMoney(amount:number, description:string, receiverId:string){
+    localStorage.setItem('current-account', ''+this.userAccount.id);
+    console.log(this.accountId);
+    console.log(receiverId);
+    const type: string ='Expense';
+    const txn = new Transaction(0, amount, description, type);
+    console.log(txn);
+    //this.accountService.createTransaction(this.receiverEmail, txn)
+    this.accountService.sendMoneyTransaction(this.accountId, receiverId, txn).subscribe({
+      next:()=>{
+        console.log("In send money");
+        
+      },
+      complete: () => {
+        this.getAccount();
+        this.getAllTransactions();
+        
+
+      }
+    });
+
+  }
+  getReceiver(){
+    this.accountService.getAccount(this.accountId).subscribe({
+      next: (data)=>{
+        this.receiverAccount=new Account(
+          data.id,
+          data.name,
+          data.balance,
+          data.description,
+          data.creationDate
+        );
+      },
+      error: () => {
+        this.accountMessage = "No matching user was found!"
+      },
+    });
+
+  }
+
   getAccount() {
     this.accountService.getAccount(this.accountId).subscribe({
       next: (response) => {
-
-        this.userAccount = response;
-
+        this.userAccount = new Account(
+          response.id,
+          response.name,
+          response.balance,
+          response.description,
+          response.creationDate
+        );
       },
       error: () => {
         this.accountMessage = "No account was found, please create one!"
@@ -101,8 +154,7 @@ export class AccountComponent implements OnInit {
         const num = this.userAccount.balance;
         this.userAccount.balance = +num.toFixed(2);
 
-
-        if (num < 0) {
+        if(num < 0) {
           this.balanceStyle = {
             color: '#ff0000'
           }
@@ -115,7 +167,6 @@ export class AccountComponent implements OnInit {
         this.accountName.setValue(this.userAccount.name);
         this.balance.setValue(this.userAccount.balance);
         this.accountDescription.setValue(this.userAccount.description);
-
       }
     });
   }

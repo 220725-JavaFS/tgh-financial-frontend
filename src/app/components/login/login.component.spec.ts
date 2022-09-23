@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 import { Observable, of } from 'rxjs';
@@ -22,6 +23,7 @@ describe('LoginComponent', () => {
     );
 
     await TestBed.configureTestingModule({
+      imports:[HttpClientModule],
       declarations: [ LoginComponent ],
       providers: [{provide: AuthService, useValue: serviceSpy}]
     })

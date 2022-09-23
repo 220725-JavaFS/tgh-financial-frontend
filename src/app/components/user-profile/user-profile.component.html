@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
-<div class="row gutters-sm" >
+<div >
     <div class="col-md-4 mb-3" style="margin:auto; margin-top: 50px">
-      <div>
+      <div class="card">
         <div class="card-body">
           <div class="d-flex flex-column align-items-center text-center">
             <img id="revicon" src="../../../assets/images/favicon.png" class="rounded-circle" width="150">
@@ -14,8 +14,8 @@
              </p>
 
 
-              <button *ngIf=!visible class="btn btn-primary" (click)="switchVisibility()">Update Profile</button>
-              <button *ngIf=visible class="btn btn-primary" (click)="postUserProfile()">Save</button>
+              <button *ngIf=!visible class="btn btn-success" (click)="switchVisibility()">Update Profile</button>
+              <button *ngIf=visible class="btn btn-success" (click)="postUserProfile()">Save</button>
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@
 <br>
 
 <div *ngIf=visible style="margin:auto" class="col-md-7">
-    <div>
+    <div class="card" >
       <div class="card-body">
 
         <div class="row">
