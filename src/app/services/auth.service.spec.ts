@@ -16,10 +16,10 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports:[HttpClientModule],
-      providers: []
+      imports:[HttpClientTestingModule],
+      providers: [AuthService]
     }).compileComponents();
-
+    http = TestBed.inject(HttpTestingController)
     service = TestBed.inject(AuthService);
   });
 
