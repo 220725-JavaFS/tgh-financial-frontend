@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
-<div class="home-wrap">
-  <div class="account-wrap">
+<div [ngClass]="{'home-wrap':true}">
+  <div [ngClass]="{'account-wrap':true}">
     <h2>My Bank Accounts</h2>
     <div *ngFor="let accounts of allUserAccounts" class="account-card">
       <h2 *ngIf="accountExists">{{accounts.name}}</h2>
@@ -10,6 +10,32 @@
       <button class="btn btn-outline-secondary btn-lg" (click)=changeCurrentAccountId(accounts.id);
         [routerLink]="['/account']">Account Details</button>
       <h1 *ngIf="accountExists">Balance: ${{accounts.balance}}</h1>
+
+      <!-- <div [ngClass]="{'home-wrap':true}">
+    <div [ngClass]="{'account-wrap':true}">
+        <h2>My Bank Account</h2>
+        <div class="account-card">
+            <h2 *ngIf="accountExists">{{userAccount.name}}</h2>
+            <h4 *ngIf="accountExists">Description: {{userAccount.description}}</h4>
+            <h4 *ngIf="accountExists">Created On: {{userAccount.creationDate}}</h4>
+            <button class="btn btn-outline-secondary btn-lg" *ngIf="accountExists" [routerLink]="['/account']">Account Details</button>
+            <h1 *ngIf="accountExists">Balance: ${{userAccount.balance}}</h1>
+        </div>
+        <p>{{accountMessage}}</p>
+        <button class="btn btn-outline-primary btn-lg" *ngIf="!createFormOpen && !accountExists" (click)="openCreateForm();">Open Account</button>
+        <form class="input-form" *ngIf="createFormOpen">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" [formControl]="accountName" placeholder="Account Name" id="basic-name" aria-describedby="basic-addon3">
+              </div>
+              <div class="input-group mb-3" *ngIf="!accountExists">               
+                <span class="input-group-text">$</span>
+                <input type="number" placeholder="Balance" [formControl]="balance" class="form-control" aria-label="Amount (to the nearest dollar)">
+              </div>
+              <div class="input-group">
+                <textarea class="form-control" [formControl]="accountDescription" placeholder="Account Description..." aria-label="With textarea"></textarea>
+              </div>
+              <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit" (click)="attemptUpsertAccount(accountName.value, balance.value, accountDescription.value);">Save</button>
+        </form> -->
     </div>
     <div *ngIf="accountExists">
       <p>{{accountMessage}}</p>
@@ -18,9 +44,11 @@
       <p>{{accountMessage}}</p>
     </div>
 
+    <div>
     <button class="btn btn-outline-primary btn-lg" (click)="openCreateForm();">Open Account</button>
 
     <span> <button (click)="updateForm();" class="btn btn-outline-secondary btn-lg">Update Account Info</button> </span>
+  </div>
 
 
     <form class="input-form" *ngIf="createFormOpen">
@@ -46,7 +74,7 @@
       <br>
       <div class="input-group mb-3">
         <span class="input-group-text">Account Id:</span>
-        <select id="accountSelect" [(ngModel)]="selectedAccountId" name="selectedAccount">
+        <select id="accountSelect" [(ngModel)]="selectedAccountId" name="selectedAccount" required>
           <option *ngFor="let accountId of allUserAccounts" [value]="accountId.id">
             {{accountId.id}}
           </option>
@@ -64,6 +92,9 @@
     </form>
     <div *ngIf="balanceIsNegative">
       <p class="error-message">{{balanceMessage}}</p>
+    </div>
+    <div *ngIf="selectedAccountError">
+      <p class="error-message">{{accountIdMessage}}</p>
     </div>
 
   </div>

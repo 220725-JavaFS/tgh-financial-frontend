@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
-<div class="home-wrap">
-    <div class="account-wrap">
-        <h2 >Account Details: {{accountName.value}}</h2>
+<div [ngClass]="{'home-wrap':true}">
+    <div [ngClass]="{'account-wrap':true}">
+        <h2>Account Details: {{accountName.value}}</h2>
         <h2 id="balance" [style]="balanceStyle">Balance: ${{balance.value}}</h2>
         <button class="btn btn-outline-primary btn-lg" *ngIf="!createFormOpen" (click)="openCreateForm();">Add Transaction</button>
           <form class="input-form" *ngIf="createFormOpen">
@@ -23,6 +23,6 @@
             <h1>{{txn.type}}: ${{txn.amount}}</h1>
         </div>
         <p>{{accountMessage}}</p>
-        
+
     </div>
 </div>
