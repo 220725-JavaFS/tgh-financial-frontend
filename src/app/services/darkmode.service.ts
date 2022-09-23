@@ -17,6 +17,10 @@ export class DarkmodeService {
   changeMode(darkMode: string) {
     localStorage.setItem('dark-mode', darkMode);
     this.mode.next(localStorage.getItem('dark-mode')||'false');
+    let userId = localStorage.getItem('current-user')||'0';
+    if(userId=='0'){
+      return;
+    }
     this.updateDarkMode().subscribe();
   }
 

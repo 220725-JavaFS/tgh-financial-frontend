@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChange } from '@angular/core';
 import { Form, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, Observable, reduce } from 'rxjs';
 import { Account } from 'src/app/models/account';
 import { Transaction } from 'src/app/models/transaction';
 import { AccountService } from 'src/app/services/account.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-account',
@@ -19,7 +20,7 @@ export class AccountComponent implements OnInit {
   accountId: string = '';
   txnType: FormControl = new FormControl(['']);
   userAccount!: Account;
-  
+
   accountName: FormControl = new FormControl(['']);
   balance: FormControl = new FormControl(['']);
   accountDescription: FormControl = new FormControl(['']);
@@ -33,9 +34,12 @@ export class AccountComponent implements OnInit {
   transactions: Transaction[] = [];
   darkMode = false;
 
+  constructor(private accountService: AccountService, private router: Router) {
+    this.accountId = localStorage.getItem('current-account') || '';
 
-  constructor(private accountService: AccountService, private router: Router) { 
-    this.accountId = accountService.accountId;
+  // constructor(private accountService: AccountService) { 
+  //   this.accountId = accountService.accountId;
+
   }
 
   ngOnInit(): void {
@@ -62,7 +66,7 @@ export class AccountComponent implements OnInit {
   openCreateForm() {
     this.createFormOpen = true;
   }
-
+//Unchanged
   getAllTransactions() {
     this.accountService.getTransactions(this.accountId).subscribe({
       next: (resp) => {
@@ -81,17 +85,13 @@ export class AccountComponent implements OnInit {
     }
     );
   }
-
+ //Is used on Init when called on the account component. 
   getAccount() {
-    this.accountService.getAccount().subscribe({
+    this.accountService.getAccount(this.accountId).subscribe({
       next: (response) => {
-        this.userAccount = new Account(
-          response.id,
-          response.name,
-          response.balance,
-          response.description,
-          response.creationDate 
-        );
+
+        this.userAccount = response;
+
       },
       error: () => {
         this.accountMessage = "No account was found, please create one!"
@@ -101,7 +101,8 @@ export class AccountComponent implements OnInit {
         const num = this.userAccount.balance;
         this.userAccount.balance = +num.toFixed(2);
 
-        if(num < 0) {
+
+        if (num < 0) {
           this.balanceStyle = {
             color: '#ff0000'
           }
@@ -114,6 +115,7 @@ export class AccountComponent implements OnInit {
         this.accountName.setValue(this.userAccount.name);
         this.balance.setValue(this.userAccount.balance);
         this.accountDescription.setValue(this.userAccount.description);
+
       }
     });
   }
