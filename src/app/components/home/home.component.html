@@ -46,14 +46,11 @@
     </div>
 
     <div>
-    <button class="btn btn-outline-primary btn-lg" (click)="openCreateForm();">Open Account</button>
-    <span> <button (click)="updateForm();" class="btn btn-outline-secondary btn-lg">Update Account Info</button> </span>
-    
-    <span> <button (click)="transferMoney();" class="btn btn-outline-secondary btn-lg">Transfer Money Between Accounts</button> </span>
-    
-  </div>
-
-
+      <button class="btn btn-outline-primary btn-lg" (click)="openCreateForm();">Open Account</button>
+      <span> <button (click)="updateForm();" class="btn btn-outline-secondary btn-lg">Update Account Info</button>
+      </span>
+      <span> <button (click)="transferMoney();" class="btn btn-outline-secondary btn-lg">Transfer Money</button> </span>
+    </div>
     <form class="input-form" *ngIf="createFormOpen" id="updateForm" #updateForm="ngForm">
       <div class="input-group mb-3">
         <input type="text" class="form-control" [formControl]="accountName" placeholder="Account Name" id="basic-name"
@@ -70,7 +67,8 @@
           aria-label="With textarea" required></textarea>
       </div>
       <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit"
-        (click)="insertAccount(accountName.value, balance.value, accountDescription.value); updateForm.resetForm()" reset >Save</button>
+        (click)="insertAccount(accountName.value, balance.value, accountDescription.value); updateForm.resetForm()"
+        reset>Save</button>
     </form>
 
     <form class="input-form" *ngIf="updateFormOpen">
@@ -101,35 +99,49 @@
     </div>
 
     <!--This is where we left off -->
-  <div>
-    <form class="input-form" *ngIf="transferMoneyOpen">
-      <span class="input-group-text">Sending Account Id:</span>
-      <select id="accountSelect" [(ngModel)]="selectedAccountId" name="selectedAccount" required>
-        <option *ngFor="let accountId of allUserAccounts" [value]="accountId.id">
-          {{accountId.id}}
-        </option>
-      </select>
+    <div>
+      <form class="input-form" *ngIf="transferMoneyOpen">
+        <div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Sending Id:</span>
+          <select id="accountSelect" [(ngModel)]="selectedSenderId" name="selectedAccount" required>
+            <option *ngFor="let senderId of allSenderAccounts" [value]="senderId.id">
+              {{senderId.id}}
+            </option>
+          </select>&nbsp;
+          <span class="input-group-text">&nbsp;$</span>
+        <input type="number" placeholder="Amount" [formControl]="txnAmount" class="form-control"
+          aria-label="Amount (to the nearest dollar)">&nbsp;
+          <span class="input-group-text">&nbsp; Receiving Id:</span>
+          <select id="accountSelect" [(ngModel)]="selectedReceiverId" name="selectedAccount2" required>
+            <option *ngFor="let receiverId of allReceiverAccounts" [value]="receiverId.id">
+              {{receiverId.id}}
+            </option>
+          </select>
+        </div>
+        </div>
 
-<span class="input-group-text">$</span>
-<input type="number" placeholder="Amount" [formControl]="txnAmount" class="form-control"
-  aria-label="Amount (to the nearest dollar)">
+        
 
 
-
-      <span class="input-group-text"> Receiving Account Id:</span>
-      <select id="accountSelect" [(ngModel)]="selectedAccountId" name="selectedAccount2" required>
-        <option *ngFor="let receiverId of allUserAccounts" [value]="receiverId.id">
-          {{receiverId.id}}
-        </option>
-      </select>
-      <div class="input-group">
-        <textarea class="form-control" [formControl]="txnDescription" placeholder="Memo..."
-          aria-label="With textarea"></textarea>
+        
+        <div class="input-group">
+          <textarea class="form-control" [formControl]="txnDescription" placeholder="Memo..."
+            aria-label="With textarea"></textarea>
+        </div>
+        <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit"
+          (click)="sendTransferMoney(txnAmount.value,txnDescription.value,receiverId.value, senderId.value)">Submit</button>
+      </form>
+      <div *ngIf="selectedSameAccountError">
+        <p class="error-message">{{accountIdMessage}}</p>
       </div>
-      <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit"
-        (click)="sendTransferMoney(txnAmount.value,txnDescription.value,receiverId.value, senderId.value)">Submit</button>
-    </form>
-</div>
+      <div *ngIf="selectedAmountError">
+        <p class="error-message">{{accountIdMessage}}</p>
+      </div>
+      <div *ngIf="selectedHighError">
+        <p class="error-message">{{accountIdMessage}}</p>
+      </div>
+    </div>
 
   </div>
 </div>

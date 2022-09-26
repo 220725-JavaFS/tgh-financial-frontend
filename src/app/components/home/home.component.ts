@@ -24,11 +24,18 @@ export class HomeComponent implements OnInit {
   updateFormOpen: boolean = false;
   balanceIsNegative: boolean = false;
   selectedAccountError: boolean = false;
+  selectedSameAccountError: boolean = false;
+  selectedHighError:boolean = false;
+  selectedAmountError = false;
   balanceMessage: string = '';
   userAccount!: Account;
   allUserAccounts: Account[] = [];
+  allSenderAccounts: Account[] = [];
+  allReceiverAccounts: Account[] = [];
   currentAccountId: number = 0;
   selectedAccountId: number = 0;
+  selectedSenderId: number = 0;
+  selectedReceiverId: number = 0;
 
   accountMessage: string = '';
   accountIdMessage: string = '';
@@ -74,6 +81,8 @@ export class HomeComponent implements OnInit {
         //These booleans act off each other. The first one opens the update form and the second one closes the create form.
         this.updateAccountDescription.reset();
         this.accountId.reset();
+        this.senderId.reset();
+        this.receiverId.reset();
         this.accountName.reset();
         this.balance.reset();
         this.accountDescription.reset();
@@ -102,6 +111,8 @@ export class HomeComponent implements OnInit {
     this.accountService.getAccounts().subscribe({
       next: (response: Account[]) => {
         this.allUserAccounts = response;
+        this.allSenderAccounts = response;
+        this.allReceiverAccounts = response;
 
         if (response.length == 0) {
           this.accountMessage = "No account was found, please create one!"
@@ -181,22 +192,37 @@ export class HomeComponent implements OnInit {
   }
 
   sendTransferMoney(amount: number, description: string, receiverId: number, senderId:number) {
-    localStorage.setItem('current-account', '' + this.userAccount.id);
-    let senderIdString: string = `${senderId}`;
-    let receiverIdString: string = `${receiverId}`;
-    console.log(this.accountId);
-    console.log(receiverId);
+    this.selectedSameAccountError = false;
+    this.selectedAmountError = false;
+    this.selectedHighError = false;
+    let senderIdString: string = `${this.selectedSenderId}`;
+    let receiverIdString: string = `${this.selectedReceiverId}`;
+    console.log(this.selectedSenderId);
+    console.log(this.selectedReceiverId);
+    if(this.selectedSenderId==this.selectedReceiverId){
+      this.selectedSameAccountError = true;
+      this.accountIdMessage = "Can not send to same account!";
+      return;
+    }else if(amount <=1){
+      this.selectedAmountError = true;
+      this.accountIdMessage = "Can not send less than $1!";
+      return;
+    } 
     const type: string = 'Expense';
     const txn = new Transaction(0, amount, description, type);
     console.log(txn);
     //this.accountService.createTransaction(this.receiverEmail, txn)
     this.accountService.sendMoneyTransaction(senderIdString, receiverIdString, txn).subscribe({
       next: () => {
-        console.log("In send money");
+        console.log("In transer money");
+      },
+      error:()=>{
+        this.selectedHighError = true;
+        this.accountIdMessage = "Can not transfer more money than balance!"
 
       },
       complete: () => {
-        
+        this.getAllAccounts();
 
 
       }
