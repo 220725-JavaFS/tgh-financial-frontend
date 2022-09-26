@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   txnDescription: FormControl = new FormControl(['']);
   accountExists: boolean = false;
   accountMissing: boolean = false;
+  newAccountMissingInfo: boolean = false;
   createFormOpen: boolean = false;
   updateFormOpen: boolean = false;
   balanceIsNegative: boolean = false;
@@ -143,21 +144,27 @@ export class HomeComponent implements OnInit {
   insertAccount(name: string, balance: number, description: string) {
     this.updateAccountName.setValue("");
     this.updateAccountDescription.setValue("");
-    if (balance >= 1) {
-      this.balanceIsNegative = false;
-      this.userAccount = new Account(0, name, balance, description, null);
-      this.accountService.insertAccount(this.userAccount).subscribe({
-        next: (response) => {
-          this.createFormOpen = false;
-          
-        },
-        complete: () => {
-          this.getAllAccounts();
-        }
-      })
-    } else {
-      this.balanceIsNegative = true;
-      this.balanceMessage = "Your new account must at least have a balance of 1 dollar.";
+    if(name != null && description != null){
+      this.newAccountMissingInfo = false;
+      if (balance >= 1) {
+        this.balanceIsNegative = false;
+        this.userAccount = new Account(0, name, balance, description, null);
+        this.accountService.insertAccount(this.userAccount).subscribe({
+          next: (response) => {
+            this.createFormOpen = false;
+            
+          },
+          complete: () => {
+            this.getAllAccounts();
+          }
+        })
+      } else {
+        this.balanceIsNegative = true;
+        this.balanceMessage = "Your new account must at least have a balance of 1 dollar.";
+      }      
+    }else{
+      this.newAccountMissingInfo = true;
+      this.balanceMessage = "Missing Account Information..."
     }
   }
 
