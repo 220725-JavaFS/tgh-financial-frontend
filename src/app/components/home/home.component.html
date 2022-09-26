@@ -117,7 +117,7 @@
 
 
       <span class="input-group-text"> Receiving Account Id:</span>
-      <select id="accountSelect" [(ngModel)]="selectedAccountId" name="selectedAccount" required>
+      <select id="accountSelect" [(ngModel)]="selectedAccountId" name="selectedAccount2" required>
         <option *ngFor="let receiverId of allUserAccounts" [value]="receiverId.id">
           {{receiverId.id}}
         </option>
@@ -127,7 +127,7 @@
           aria-label="With textarea"></textarea>
       </div>
       <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit"
-        (click)="sendTransferMoney(txnAmount.value,txnDescription.value,receiverId, senderAccountId.value)">Submit</button>
+        (click)="sendTransferMoney(txnAmount.value,txnDescription.value,receiverId.value, senderId.value)">Submit</button>
     </form>
 </div>
 
