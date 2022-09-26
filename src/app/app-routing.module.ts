@@ -8,12 +8,14 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 // Imported the password-reset component
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { PasswordResetSendEmailComponent } from './components/password-reset-send-email/password-reset-send-email.component';
+import { SendMoneyComponent } from './components/send-money/send-money.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'account', component: AccountComponent },
+  { path: 'send-money', component: SendMoneyComponent },
   { path: 'home', component: HomeComponent },
   { path: 'profile', component: UserProfileComponent },
   // Created a new path for the pass-word reset page

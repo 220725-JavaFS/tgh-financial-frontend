@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   createFormOpen: boolean = false;
   updateFormOpen: boolean = false;
   balanceIsNegative: boolean = false;
+  selectedAccountError: boolean = false;
   balanceMessage: string = '';
   userAccount!: Account;
   allUserAccounts: Account[] = [];
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit {
   selectedAccountId: number = 0;
 
   accountMessage: string = '';
+  accountIdMessage: string = '';
 
   accountId: FormControl = new FormControl(['']);
   accountName: FormControl = new FormControl(['']);
@@ -49,8 +51,13 @@ export class HomeComponent implements OnInit {
     this.updateFormOpen = true;
     this.createFormOpen = false;
     //These booleans act off each other. The first one opens the update form and the second one closes the create form.
-    this.updateAccountName.setValue("");
-    this.updateAccountDescription.setValue(['']);
+    this.updateAccountDescription.reset();
+    this.accountId.reset();
+    this.accountName.reset();
+    this.balance.reset();
+    this.accountDescription.reset();
+    this.updateAccountName.reset();
+
 
     // this.accountService.setActiveUser();
     // this.accountService.getAccount().subscribe({
@@ -85,8 +92,12 @@ export class HomeComponent implements OnInit {
     this.createFormOpen = true;
     this.updateFormOpen = false;
     //These booleans act off each other. The first one opens the create form and the second one closes the update form.
-    this.updateAccountName.setValue("");
-    this.updateAccountDescription.setValue("");
+    this.updateAccountDescription.reset();
+    this.accountId.reset();
+    this.accountName.reset();
+    this.balance.reset();
+    this.accountDescription.reset();
+    this.updateAccountName.reset();
   }
   //This method is run onInit. Properly validating the amount of accounts.
   getAllAccounts() {
@@ -128,6 +139,7 @@ export class HomeComponent implements OnInit {
       this.accountService.insertAccount(this.userAccount).subscribe({
         next: (response) => {
           this.createFormOpen = false;
+          
         },
         complete: () => {
           this.getAllAccounts();
@@ -140,8 +152,16 @@ export class HomeComponent implements OnInit {
   }
 
   updateAccount(accountId: number, name: string, balance: number, description: string) {
+    this.selectedAccountError = false;
     this.updateAccountName.setValue("");
     this.updateAccountDescription.setValue("");
+
+    if(this.selectedAccountId == 0){
+      this.selectedAccountError = true;
+      this.accountIdMessage = "Please select an Account Id!";
+      return;
+      
+    }
 
     this.balanceIsNegative = false;
     this.userAccount = new Account(this.selectedAccountId, name, 0, description, null);

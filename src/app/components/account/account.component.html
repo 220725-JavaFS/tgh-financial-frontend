@@ -1,14 +1,13 @@
 <app-navbar></app-navbar>
-<<<<<<< HEAD
-<div class="home-wrap">
-    <div class="account-wrap">
-        <h2 >Account Details: {{accountName.value}}</h2>
-=======
 <div [ngClass]="{'home-wrap':true}">
     <div [ngClass]="{'account-wrap':true}">
         <h2>Account Details: {{accountName.value}}</h2>
->>>>>>> origin/main
-        <h2 id="balance" [style]="balanceStyle">Balance: ${{balance.value}}</h2>
+        <h2 id="balance" [style]="balanceStyle">Balance: ${{balance.value}} 
+        </h2>
+        <br>
+          <button class="btn btn-outline-primary btn-lg" type="submit" *ngIf="!createFormOpen" [routerLink]="['/send-money']">Send Money</button>
+          <br>
+          <br>
         <button class="btn btn-outline-primary btn-lg" *ngIf="!createFormOpen" (click)="openCreateForm();">Add Transaction</button>
           <form class="input-form" *ngIf="createFormOpen">
                 <div class="input-group mb-3">   
@@ -23,12 +22,15 @@
                   <textarea class="form-control" [formControl]="txnDescription" placeholder="Account Description..." aria-label="With textarea"></textarea>
                 </div>
                 <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit" (click)="addTransaction(txnAmount.value, txnDescription.value, txnType.value);">Add</button>
+                
           </form>
-        <div class="account-card"*ngFor="let txn of transactions">
+
+          
+
+          <div class="account-card"*ngFor="let txn of transactions">
             <h2>{{txn.description}}</h2>
             <h1>{{txn.type}}: ${{txn.amount}}</h1>
         </div>
         <p>{{accountMessage}}</p>
-        
     </div>
 </div>
