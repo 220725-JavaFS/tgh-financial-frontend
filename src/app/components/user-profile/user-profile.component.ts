@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserProfile } from 'src/app/models/user-profile';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { environment } from 'src/environments/environment';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,8 +14,8 @@ export class UserProfileComponent implements OnInit {
   updateFeedback = '';
   profileUrl = '';
   visible:boolean = true;
-  isNewUser:boolean = false;
   profile: UserProfile = new UserProfile(0, '', '', '', '', '', '', '');
+  telephone:string = '';
 
   constructor(private userProfileService:UserProfileService) { }
 
@@ -29,7 +30,6 @@ export class UserProfileComponent implements OnInit {
       next: (response) => {
         console.log(response);
         this.getUserProfile();
-        this.isNewUser = false;
         this.updateFeedback = 'Successfully created a new profile!';
       },
       error: () => {
@@ -47,13 +47,15 @@ export class UserProfileComponent implements OnInit {
         } else {
           this.profile = new UserProfile(0, '', '', '', '', '', '', '');
           this.updateFeedback = "No profile detected, please create one"
-          this.isNewUser=true;
         }
         console.log(response);
       },
       error: () => {
         this.profile = new UserProfile(0, '', '', '', '', '', '', '');
         this.updateFeedback = 'An error occurred'
+      },
+      complete: () => {
+        this.telephone = `(${this.profile.phone.substring(0,3)}) ${this.profile.phone.substring(3,6)}-${this.profile.phone.substring(6,10)}`;
       }
     });
   }
@@ -63,7 +65,16 @@ export class UserProfileComponent implements OnInit {
     this.updateFeedback = '';
   }
 
-
+  submitForm(){
+    let myForm = <HTMLFormElement>document.getElementById('myForm');
+  
+    if (myForm.checkValidity() && this.profile.phone.length ===10) {
+      myForm.submit();
+      this.postUserProfile();
+    } else {
+      this.updateFeedback='All fields required';
+    }
+  }
 
 
 
