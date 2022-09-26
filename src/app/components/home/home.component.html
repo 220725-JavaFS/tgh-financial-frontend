@@ -6,7 +6,7 @@
       <h2 *ngIf="accountExists">{{accounts.name}}</h2>
       <h4 *ngIf="accountExists">Account ID: {{accounts.id}}</h4>
       <h4 *ngIf="accountExists">Description: {{accounts.description}}</h4>
-      <h4 *ngIf="accountExists">Created On: {{accounts.creationDate}}</h4>
+      <h4 *ngIf="accountExists">Created On: {{accounts.creationDate | date}}</h4>
       <button class="btn btn-outline-secondary btn-lg" (click)=changeCurrentAccountId(accounts.id);
         [routerLink]="['/account']">Account Details</button>
       <h1 *ngIf="accountExists">Balance: ${{accounts.balance}}</h1>
@@ -89,7 +89,7 @@
           aria-label="With textarea" required></textarea>
       </div>
       <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit"
-        (click)="updateAccount(accountId.value, accountName.value, balance.value, accountDescription.value);">Save</button>
+        (click)="updateAccount(accountId.value, accountName.value, accountDescription.value);">Save</button>
     </form>
     <div *ngIf="balanceIsNegative">
       <p class="error-message">{{balanceMessage}}</p>

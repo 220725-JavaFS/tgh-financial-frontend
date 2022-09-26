@@ -133,7 +133,7 @@ export class HomeComponent implements OnInit {
   insertAccount(name: string, balance: number, description: string) {
     this.updateAccountName.setValue("");
     this.updateAccountDescription.setValue("");
-    if (balance >= 1) {
+    if (balance >= 1 &&  name != null && description != null) {
       this.balanceIsNegative = false;
       this.userAccount = new Account(0, name, balance, description, null);
       this.accountService.insertAccount(this.userAccount).subscribe({
@@ -142,29 +142,46 @@ export class HomeComponent implements OnInit {
           
         },
         complete: () => {
-          this.getAllAccounts();
+          this.getAllAccounts(); 
         }
       })
-    } else {
+    } else{
       this.balanceIsNegative = true;
-      this.balanceMessage = "Your new account must at least have a balance of 1 dollar.";
+      this.balanceMessage = "Your new account must have a balance greater than 0, name, and description.";
     }
   }
 
-  updateAccount(accountId: number, name: string, balance: number, description: string) {
+  updateAccount(accountId: number, name: string, description: string) {
     this.selectedAccountError = false;
     this.updateAccountName.setValue("");
     this.updateAccountDescription.setValue("");
+
+
+    this.accountService.getAccount(this.selectedAccountId.toString()).subscribe({
+      next: (response: Account) => {
+      let tempBalance:number = response.balance
+        console.log(tempBalance, " -Inside the block of getAccount")
+        this.userAccount = new Account(this.selectedAccountId, name, tempBalance, description, null);
+          console.log(this.userAccount, " - this is the updated userAccount insde")
+
+
+      },
+      complete: () => { 
+      // this.userAccount = new Account(this.selectedAccountId, name, tempBalance, description, null);
+      // console.log(this.userAccount, " - this is the updated userAccount")
+      }
+    });
 
     if(this.selectedAccountId == 0){
       this.selectedAccountError = true;
       this.accountIdMessage = "Please select an Account Id!";
       return;
-      
     }
 
     this.balanceIsNegative = false;
-    this.userAccount = new Account(this.selectedAccountId, name, 0, description, null);
+    // this.userAccount = new Account(this.selectedAccountId, name, tempBalance, description, null);
+    // console.log(this.userAccount, " - this is the updated userAccount")
+
     this.accountService.updateAccount(this.userAccount).subscribe({
       next: (response) => {
         this.updateFormOpen = false;
