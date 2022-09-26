@@ -19,7 +19,21 @@
                 </div>                
                 <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit" (click)="sendReceiverMoney(txnAmount.value,txnDescription.value,receiverAccountId.value)">Submit</button>                
           </form>
-
+            <div *ngIf="goodMessage">
+              <p class="error-message">{{accountIdMessage}}</p>
+            </div>
+            <div *ngIf="selectedSameAccountError">
+              <p class="error-message">{{accountIdMessage}}</p>
+            </div>
+            <div *ngIf="selectedAmountError">
+              <p class="error-message">{{accountIdMessage}}</p>
+            </div>
+            <div *ngIf="selectedHighError">
+              <p class="error-message">{{accountIdMessage}}</p>
+            </div>
+            <div *ngIf="selectedWrongError">
+              <p class="error-message">{{accountIdMessage}}</p>
+            </div>
           
 
         <div class="account-card" *ngFor="let txn of transactions">
