@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.darkmode.changeMode('false');
   }
 
   attemptLogin(email: string, password: string) {
