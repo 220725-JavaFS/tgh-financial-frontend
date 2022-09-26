@@ -68,7 +68,7 @@ export class UserProfileComponent implements OnInit {
   submitForm(){
     let myForm = <HTMLFormElement>document.getElementById('myForm');
   
-    if (myForm.checkValidity() && this.profile.zipCode.length ===5 && this.profile.phone.length ===10) {
+    if (myForm.checkValidity() && this.profile.phone.length ===10) {
       myForm.submit();
       this.postUserProfile();
     } else {

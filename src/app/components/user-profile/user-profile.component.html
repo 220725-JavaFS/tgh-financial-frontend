@@ -96,8 +96,8 @@
             <h6>Zip Code</h6>
           </div>
           <div class="col">
-            <input type="text" [(ngModel)]="profile.zipCode" class="form-control" placeholder="Zip Code" mask="00000"  name="zip" #zip="ngModel" required>
-            <small *ngIf="zip.invalid && zip.touched">Zip Code is required. Please enter 5 digits</small>
+            <input type="text" [(ngModel)]="profile.zipCode" class="form-control" placeholder="Zip Code" name="zip" #zip="ngModel" required>
+            <small *ngIf="zip.invalid && zip.touched">Zip Code is required</small>
           </div>
         </div>
 
@@ -108,7 +108,7 @@
             <h6>Phone</h6>
           </div>
           <div class="col">
-            <input type="text" [(ngModel)]="profile.phone" class="form-control" placeholder="Phone" mask="(000) 000-0000" name="phone" #phone="ngModel" required>
+            <input type="text" [(ngModel)]="profile.phone" class="form-control" placeholder="(XXX) XXX-XXXX " mask="(000) 000-0000" name="phone" #phone="ngModel" required>
             <small *ngIf="phone.invalid && phone.touched">Phone Number is required. Please enter 10 digits</small>
           </div>
         </div>
