@@ -25,6 +25,19 @@ export class UserProfileComponent implements OnInit {
   }
 
   postUserProfile(): void {
+    //This solves Issue #71
+    let user = this.userProfileService.makeRequestObject(this.profile);
+    let arr = Object.values(user);
+    for(let x of arr) {
+      //checks if the string is emtpy and for only white spaces
+      x = x.trim();
+      if(x.length == 0) {
+        this.updateFeedback = "Please fill out all of the profile!"
+        return;
+      }
+    }
+    // end of issue
+
     this.userProfileService.postUserProfile(this.profileUrl, this.profile).subscribe({
       next: (response) => {
         console.log(response);
