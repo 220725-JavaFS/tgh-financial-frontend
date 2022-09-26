@@ -67,6 +67,11 @@ export class HomeComponent implements OnInit {
     this.updateFormOpen = true;
     this.createFormOpen = false;
     this.transferMoneyOpen = false;
+    this.selectedAmountError = false;
+    this.selectedHighError = false; 
+    this.selectedSameAccountError = false;
+    this.selectedAccountError = false;
+    this.balanceIsNegative = false;
     //These booleans act off each other. The first one opens the update form and the second one closes the create form.
     this.updateAccountDescription.reset();
     this.accountId.reset();
@@ -79,6 +84,11 @@ export class HomeComponent implements OnInit {
       this.transferMoneyOpen = true;
         this.updateFormOpen = false;
         this.createFormOpen = false;
+        this.selectedAmountError = false;
+        this.selectedHighError = false; 
+        this.selectedSameAccountError = false;
+        this.selectedAccountError = false;
+        this.balanceIsNegative = false;
         //These booleans act off each other. The first one opens the update form and the second one closes the create form.
         this.updateAccountDescription.reset();
         this.accountId.reset();
@@ -99,6 +109,11 @@ export class HomeComponent implements OnInit {
     this.createFormOpen = true;
     this.updateFormOpen = false;
     this.transferMoneyOpen = false;
+    this.selectedAmountError = false;
+    this.selectedHighError = false; 
+    this.selectedSameAccountError = false; 
+    this.selectedAccountError = false;
+    this.balanceIsNegative = false;
     //These booleans act off each other. The first one opens the create form and the second one closes the update form.
     this.updateAccountDescription.reset();
     this.accountId.reset();
@@ -143,6 +158,12 @@ export class HomeComponent implements OnInit {
   insertAccount(name: string, balance: number, description: string) {
     this.updateAccountName.setValue("");
     this.updateAccountDescription.setValue("");
+
+    if(name === null && description === null){
+      this.selectedAccountError = true;
+      this.accountIdMessage = "Your account must have a name and description!";
+      return;
+    }
     if (balance >= 1) {
       this.balanceIsNegative = false;
       this.userAccount = new Account(0, name, balance, description, null);
@@ -171,6 +192,11 @@ export class HomeComponent implements OnInit {
       this.accountIdMessage = "Please select an Account Id!";
       return;
       
+    }
+    if(name === null && description === null){
+      this.selectedAccountError = true;
+      this.accountIdMessage = "Your account must have a name and description!";
+      return;
     }
 
     this.balanceIsNegative = false;
