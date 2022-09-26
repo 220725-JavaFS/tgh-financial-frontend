@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { PasswordResetComponent } from './password-reset.component';
 
-describe('PasswordResetComponent', () => {
+xdescribe('PasswordResetComponent', () => {
   let component: PasswordResetComponent;
   let fixture: ComponentFixture<PasswordResetComponent>;
 

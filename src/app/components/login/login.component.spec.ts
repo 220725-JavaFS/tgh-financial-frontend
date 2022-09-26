@@ -5,7 +5,7 @@ import { User } from 'src/app/models/user';
 import { Observable, of } from 'rxjs';
 import { LoginComponent } from './login.component';
 
-describe('LoginComponent', () => {
+xdescribe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let serviceSpy: jasmine.SpyObj<AuthService>;
