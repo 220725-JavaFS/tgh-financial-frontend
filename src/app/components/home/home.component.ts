@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   selectedSameAccountError: boolean = false;
   selectedHighError:boolean = false;
   selectedAmountError = false;
+  goodMessage: boolean = false;
   balanceMessage: string = '';
   userAccount!: Account;
   allUserAccounts: Account[] = [];
@@ -195,6 +196,7 @@ export class HomeComponent implements OnInit {
     this.selectedSameAccountError = false;
     this.selectedAmountError = false;
     this.selectedHighError = false;
+    this.goodMessage = false;
     let senderIdString: string = `${this.selectedSenderId}`;
     let receiverIdString: string = `${this.selectedReceiverId}`;
     console.log(this.selectedSenderId);
@@ -215,6 +217,8 @@ export class HomeComponent implements OnInit {
     this.accountService.sendMoneyTransaction(senderIdString, receiverIdString, txn).subscribe({
       next: () => {
         console.log("In transer money");
+        this.goodMessage = true;
+        this.accountIdMessage = "Transfer was sucessful!"
       },
       error:()=>{
         this.selectedHighError = true;
