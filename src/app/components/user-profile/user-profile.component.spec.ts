@@ -59,7 +59,6 @@ describe('UserProfileComponent', () => {
     expect(component.updateFeedback).toEqual('');
     expect(component.profileUrl).toEqual('http://localhost:8080/profile/12345');
     expect(component.visible).toBeTrue;
-    expect(component.isNewUser).toBeFalse;
     expect(component.profile).toEqual(testProfile);
   });
 
@@ -67,7 +66,6 @@ describe('UserProfileComponent', () => {
     component.postUserProfile();
     expect(component.getUserProfile).toHaveBeenCalled;
     expect(component.profile).toEqual(testProfile);
-    expect(component.isNewUser).toBeFalse;
     expect(component.updateFeedback).toEqual('Successfully created a new profile!');
   })
 

@@ -16,6 +16,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { PasswordResetSendEmailComponent } from './components/password-reset-send-email/password-reset-send-email.component';
 import { DarkmodeComponent } from './components/darkmode/darkmode.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { DarkmodeComponent } from './components/darkmode/darkmode.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
