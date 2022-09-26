@@ -57,35 +57,6 @@ export class HomeComponent implements OnInit {
     this.balance.reset();
     this.accountDescription.reset();
     this.updateAccountName.reset();
-
-
-    // this.accountService.setActiveUser();
-    // this.accountService.getAccount().subscribe({
-    //   next: (response) => {
-    //     this.userAccount = new Account(
-    //       response.id,
-    //       response.name,
-    //       response.balance,
-    //       response.description,
-    //       response.creationDate
-    //     );
-    //   },
-    //   error: () => {
-    //     this.accountMessage = "No account was found, please create one!"
-    //   },
-    //   complete: () => {
-    //     this.accountMessage = "Account was successfully retrieved from the database."
-    //     this.accountExists = true;
-    //     const num = this.userAccount.balance;
-    //     this.userAccount.balance = +num.toFixed(2);
-    //     this.accountName.setValue(this.userAccount.name);
-    //     this.balance.setValue(this.userAccount.balance);
-    //     this.accountDescription.setValue(this.userAccount.description);
-    //     this.accountService.accountId = ''+this.userAccount.id;
-    //     localStorage.setItem('current-account', ''+this.userAccount.id);
-    //   }
-    // });
-
   }
 
   openCreateForm() {
@@ -133,55 +104,38 @@ export class HomeComponent implements OnInit {
   insertAccount(name: string, balance: number, description: string) {
     this.updateAccountName.setValue("");
     this.updateAccountDescription.setValue("");
-    if (balance >= 1 &&  name != null && description != null) {
+    if (balance >= 1 && name != null && description != null) {
       this.balanceIsNegative = false;
       this.userAccount = new Account(0, name, balance, description, null);
       this.accountService.insertAccount(this.userAccount).subscribe({
         next: (response) => {
           this.createFormOpen = false;
-          
+
         },
         complete: () => {
-          this.getAllAccounts(); 
+          this.getAllAccounts();
         }
       })
-    } else{
+    } else {
       this.balanceIsNegative = true;
       this.balanceMessage = "Your new account must have a balance greater than 0, name, and description.";
     }
   }
 
-  updateAccount(accountId: number, name: string, description: string) {
+  updateAccount(accountId: number, name: string, balance: number, description: string) {
     this.selectedAccountError = false;
     this.updateAccountName.setValue("");
     this.updateAccountDescription.setValue("");
 
-
-    this.accountService.getAccount(this.selectedAccountId.toString()).subscribe({
-      next: (response: Account) => {
-      let tempBalance:number = response.balance
-        console.log(tempBalance, " -Inside the block of getAccount")
-        this.userAccount = new Account(this.selectedAccountId, name, tempBalance, description, null);
-          console.log(this.userAccount, " - this is the updated userAccount insde")
-
-
-      },
-      complete: () => { 
-      // this.userAccount = new Account(this.selectedAccountId, name, tempBalance, description, null);
-      // console.log(this.userAccount, " - this is the updated userAccount")
-      }
-    });
-
-    if(this.selectedAccountId == 0){
+    if (this.selectedAccountId == 0) {
       this.selectedAccountError = true;
       this.accountIdMessage = "Please select an Account Id!";
       return;
+
     }
 
     this.balanceIsNegative = false;
-    // this.userAccount = new Account(this.selectedAccountId, name, tempBalance, description, null);
-    // console.log(this.userAccount, " - this is the updated userAccount")
-
+    this.userAccount = new Account(this.selectedAccountId, name, 0, description, null);
     this.accountService.updateAccount(this.userAccount).subscribe({
       next: (response) => {
         this.updateFormOpen = false;
