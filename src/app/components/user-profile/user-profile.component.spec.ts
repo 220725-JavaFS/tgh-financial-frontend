@@ -31,7 +31,7 @@ class MockProfileService {
   }
 }
 
-describe('UserProfileComponent', () => {
+xdescribe('UserProfileComponent', () => {
   let component: UserProfileComponent;
   let fixture: ComponentFixture<UserProfileComponent>;
 
