@@ -244,7 +244,7 @@ export class HomeComponent implements OnInit {
       next: () => {
         console.log("In transer money");
         this.goodMessage = true;
-        this.accountIdMessage = "Transfer was sucessful!"
+        this.accountIdMessage = "Transfer was successful!"
       },
       error:()=>{
         this.selectedHighError = true;
