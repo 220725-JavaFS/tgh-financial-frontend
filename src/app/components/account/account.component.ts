@@ -59,6 +59,7 @@ export class AccountComponent implements OnInit {
       complete: () => {
         this.getAccount();
         this.getAllTransactions();
+        this.createFormOpen = false;
       }
     });
   }
@@ -102,14 +103,15 @@ export class AccountComponent implements OnInit {
         this.userAccount.balance = +num.toFixed(2);
 
 
-        if (num < 0) {
-          this.balanceStyle = {
-            color: '#ff0000'
-          }
-        } else {
-          this.balanceStyle = {
-            color: '#5dff5d'
-          }
+         if (num < 0) {
+           this.balanceStyle = {
+            
+             color: '#ff0000'
+           }
+         } else {
+           this.balanceStyle = {
+             color: '#5dff5d'
+           }
         }
 
         this.accountName.setValue(this.userAccount.name);

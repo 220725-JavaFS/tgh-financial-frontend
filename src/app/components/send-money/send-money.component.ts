@@ -139,18 +139,11 @@ export class SendMoneyComponent implements OnInit {
           this.accountIdMessage = "Can not transfer more money than balance!"
         }
           
-        
-        
-             
-       
-
-
       },
       complete: () => {
         this.getAccount();
         this.getAllTransactions();
         
-
       }
     });
 
