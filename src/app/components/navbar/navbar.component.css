@@ -2,10 +2,33 @@
     width: 8%;
     height: 8%;
     margin-right: 10px;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none !important;
+    color: #F26925;
+    font-size: 25px;
+    font-weight: bold;
+
+}
+
+.d-flex {
+    gap: 10px;
+}
+
+.container-fluid {
+    margin-right: 25px;
 }
 
 nav {
     height: 7vh;
     padding-top: 10px;
-    /* border-bottom: 5px solid rgb(77, 1, 77); */
+    box-shadow: 0 1em 1em -1em rgba(0, 0, 0, .40);
+
+}
+
+.form-check {
+    margin-top: .50em;
+
 }

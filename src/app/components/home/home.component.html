@@ -20,12 +20,12 @@
       <p>{{accountMessage}}</p>
     </div>
 
-    <div>
-      <button class="btn btn-outline-primary btn-lg" (click)="openCreateForm();">Open Account</button>
-      <span> <button (click)="updateForm();" class="btn btn-outline-secondary btn-lg">Update Account Info</button>
-      </span>
-      <span> <button (click)="transferMoney();" class="btn btn-outline-secondary btn-lg">Transfer Money</button> </span>
+    <div class="uttons">
+      <button class="btn btn-outline-primary btn-lg" (click)="openCreateForm();" style="margin: 5px;"> Open Account</button>
+      <span> <button (click)="updateForm();" class="btn btn-outline-primary btn-lg" style="margin: 5px;">Update Account Info</button></span>
+      <span> <button (click)="transferMoney();" class="btn btn-outline-primary btn-lg" style="margin: 5px;">Transfer Money</button> </span>
     </div>
+
     <form class="input-form" *ngIf="createFormOpen" id="updateForm" #updateForm="ngForm">
       <div class="input-group mb-3">
         <input type="text" class="form-control" [formControl]="accountName" placeholder="Account Name" id="basic-name"
@@ -41,7 +41,7 @@
         <textarea class="form-control" [formControl]="accountDescription" placeholder="Account Description..."
           aria-label="With textarea" required></textarea>
       </div>
-      <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit"
+      <button id="submitButton" class="btn btn-outline-primary btn-lg" type="submit"
         (click)="insertAccount(accountName.value, balance.value, accountDescription.value); updateForm.resetForm()"
         reset>Save</button>
     </form>
@@ -63,7 +63,7 @@
         <textarea class="form-control" [formControl]="accountDescription" placeholder="Account Description..."
           aria-label="With textarea" required></textarea>
       </div>
-      <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit"
+      <button id="submitButton" class="btn btn-outline-primary btn-lg" type="submit"
         (click)="updateAccount(accountId.value, accountName.value, balance.value, accountDescription.value);">Save</button>
     </form>
 
@@ -98,7 +98,7 @@
           <textarea class="form-control" [formControl]="txnDescription" placeholder="Memo..."
             aria-label="With textarea"></textarea>
         </div>
-        <button id="submitButton" class="btn btn-outline-secondary btn-lg" type="submit"
+        <button id="submitButton" class="btn btn-outline-primary btn-lg" type="submit"
           (click)="sendTransferMoney(txnAmount.value,txnDescription.value,receiverId.value, senderId.value)">Submit</button>
       </form>
       <div *ngIf="goodMessage">

@@ -30,6 +30,7 @@ export class AccountComponent implements OnInit {
   accountMessage: string = '';
 
   balanceStyle = {};
+  txnStyle = {};
 
   transactions: Transaction[] = [];
   darkMode = false;
@@ -82,6 +83,7 @@ export class AccountComponent implements OnInit {
     this.accountService.getTransactions(this.accountId).subscribe({
       next: (resp) => {
         this.transactions = resp;
+        console.log(resp);
       },
       error: () => {
         this.accountMessage = 'No transactions were retrieved...';
@@ -117,11 +119,11 @@ export class AccountComponent implements OnInit {
          if (num < 0) {
            this.balanceStyle = {
             
-             color: '#ff0000'
+             color: 'Crimson'
            }
          } else {
            this.balanceStyle = {
-             color: '#5dff5d'
+             color: 'SeaGreen'
            }
         }
 
