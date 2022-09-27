@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params} from '@angular/router'; // I added this
 import { TokenUser } from 'src/app/models/tokenUser';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service'; // this is also for the router
+import { DarkmodeService } from 'src/app/services/darkmode.service';
 
 // import { User } from '../models/user';
 @Component({
@@ -25,10 +26,13 @@ export class PasswordResetComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private darkmode: DarkmodeService) { }
     
 
   ngOnInit(): void {
+
+    this.darkmode.changeMode('false');
     // this.activatedRoute.params.forEach((params: Params) => {
     //   this.token = params['token'];
     //   console.log(this.token);

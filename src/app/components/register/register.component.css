@@ -8,11 +8,12 @@
 
 .form-wrap {
     width: 55%;
-    height: 70%;
+    height: 100%;
     background: rgba(0,0,0,0);
     box-shadow: 0 15px 25px #000;
     align-items: center;
     text-align: center;
+    border-radius: 2em;
 }
 
 #revImg {
@@ -21,9 +22,9 @@
 }
 
 h2 {
-    margin-top: 10%;
+    margin-top: 2em;
     padding-bottom: 25px;
-    color: #636363
+    color: darkgray;  
 }
 
 .input-group {
@@ -34,4 +35,8 @@ h2 {
 p {
     padding-top: 45px;
     color: red;
+}
+.btn{
+    background-color: #F26925;
+    border: none;
 }

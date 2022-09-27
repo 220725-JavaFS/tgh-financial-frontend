@@ -30,6 +30,7 @@ export class AccountComponent implements OnInit {
   accountMessage: string = '';
 
   balanceStyle = {};
+  txnStyle = {};
 
   transactions: Transaction[] = [];
   darkMode = false;
@@ -48,6 +49,16 @@ export class AccountComponent implements OnInit {
   }
 
   addTransaction(amount: number, description: string, type: string) {
+    // made sure that the amount has to be greater than 0 and
+    //
+    if(amount <= 0) {
+      this.accountMessage = 'Amount has to be greater than 0';
+      return;
+    }
+    // made sure that the amount would be at most 2 digits after the decimal point
+    amount = Number(amount.toFixed(2));
+    
+
     const txn = new Transaction(0, amount, description, type);
     this.accountService.createTransaction(this.accountId, txn).subscribe({
       next: () => {
@@ -59,6 +70,7 @@ export class AccountComponent implements OnInit {
       complete: () => {
         this.getAccount();
         this.getAllTransactions();
+        this.createFormOpen = false;
       }
     });
   }
@@ -71,6 +83,7 @@ export class AccountComponent implements OnInit {
     this.accountService.getTransactions(this.accountId).subscribe({
       next: (resp) => {
         this.transactions = resp;
+        console.log(resp);
       },
       error: () => {
         this.accountMessage = 'No transactions were retrieved...';
@@ -97,11 +110,13 @@ export class AccountComponent implements OnInit {
         this.accountMessage = "No account was found, please create one!"
       },
       complete: () => {
-        this.accountMessage = "Account was successfully retrieved from the database.";
+        // changed to this to be more user friendly
+        this.accountMessage = "Account was successfully updated";
         const num = this.userAccount.balance;
         this.userAccount.balance = +num.toFixed(2);
 
 
+<<<<<<< HEAD
         if (num < 0) {
           this.balanceStyle = {
             color: '#ff0000'
@@ -110,6 +125,17 @@ export class AccountComponent implements OnInit {
           this.balanceStyle = {
             color: '#5dff5d'
           }
+=======
+         if (num < 0) {
+           this.balanceStyle = {
+            
+             color: 'Crimson'
+           }
+         } else {
+           this.balanceStyle = {
+             color: 'SeaGreen'
+           }
+>>>>>>> origin/main
         }
 
         this.accountName.setValue(this.userAccount.name);

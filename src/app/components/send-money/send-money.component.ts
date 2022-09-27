@@ -15,13 +15,17 @@ import {User} from 'src/app/models/user';
   styleUrls: ['./send-money.component.css']
 })
 export class SendMoneyComponent implements OnInit {
-
+  selectedWrongError: boolean = false;
+  goodMessage: boolean = false;
+  selectedSameAccountError: boolean = false;
+  selectedAmountError: boolean = false;
+  accountIdMessage: string = '';
   txnAmount: FormControl = new FormControl(['']);
   txnDescription: FormControl = new FormControl(['']);
   accountId: string = '';
   txnType: FormControl = new FormControl(['']);
   userAccount!: Account;
-  
+  selectedHighError: boolean = false;
   accountName: FormControl = new FormControl(['']);
   balance: FormControl = new FormControl(['']);
   accountDescription: FormControl = new FormControl(['']);
@@ -95,10 +99,24 @@ export class SendMoneyComponent implements OnInit {
     );
   }
   
-  sendReceiverMoney(amount:number, description:string, receiverId:string){
+  sendReceiverMoney(amount: number, description: string, receiverId: string) {
+    this.selectedSameAccountError = false;
+    this.selectedAmountError = false;
+    this.selectedHighError = false;
+    this.goodMessage = false;
+    this.selectedWrongError = false;
     localStorage.setItem('current-account', ''+this.userAccount.id);
     console.log(this.accountId);
     console.log(receiverId);
+    if (this.accountId == receiverId) {
+      this.selectedSameAccountError = true;
+      this.accountIdMessage = "Can not send to same account!";
+      return;
+    } else if (amount <= 1) {
+      this.selectedAmountError = true;
+      this.accountIdMessage = "Can not send less than $1!";
+      return;
+    } 
     const type: string ='Expense';
     const txn = new Transaction(0, amount, description, type);
     console.log(txn);
@@ -106,13 +124,26 @@ export class SendMoneyComponent implements OnInit {
     this.accountService.sendMoneyTransaction(this.accountId, receiverId, txn).subscribe({
       next:()=>{
         console.log("In send money");
+        this.goodMessage = true;
+        this.accountIdMessage = "Send is complete!"
         
+      },
+      error: (err) => {
+        
+        if (err.status == 500) {
+          this.selectedWrongError = true;
+        this.accountIdMessage = "That receiving account doesnt exist!"
+        }
+        else {
+          this.selectedHighError = true;
+          this.accountIdMessage = "Can not transfer more money than balance!"
+        }
+          
       },
       complete: () => {
         this.getAccount();
         this.getAllTransactions();
         
-
       }
     });
 
@@ -156,11 +187,11 @@ export class SendMoneyComponent implements OnInit {
 
         if(num < 0) {
           this.balanceStyle = {
-            color: '#ff0000'
+            color: 'Crimson'
           }
         } else {
           this.balanceStyle = {
-            color: '#5dff5d'
+            color: 'SeaGreen'
           }
         }
 

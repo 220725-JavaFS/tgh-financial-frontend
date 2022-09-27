@@ -1,7 +1,8 @@
 <div class="main-wrap">
     <div class="form-wrap">
         <img id="revImg" src="../../../assets/images/rev-logo.png" alt="Revature">
-        <h2>Banking Login</h2>
+        <h2 class="login-text">Welcome to TGH Financial</h2>
+        <h4 class="login-text">Please Login:</h4>
         <form class="row g-3">
             <div class="input-group mb-3">
               <div class="input-group">
@@ -20,7 +21,7 @@
               <button class="btn btn-success btn-lg" type="submit" (click)="attemptLogin(email.value, password.value);">Login</button>
             </div>
             <div class="col-12">
-                <button class="btn btn-outline-secondary btn-lg" type="submit" [routerLink]="['/register']">Register</button>
+                <button class="btn btn-success btn-lg" type="submit" [routerLink]="['/register']">Register</button>
               </div>
           </form>
           <p>{{noticeMessage}}</p>

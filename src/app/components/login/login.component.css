@@ -6,6 +6,11 @@
     display: flex;
 }
 
+.form-control{
+    width: 20px;
+    box-sizing: content-box;
+}
+
 .form-wrap {
     position: relative;
     width: 55%;
@@ -15,6 +20,7 @@
     align-items: center;
     text-align: center;
     padding-bottom: 2%;
+    border-radius: 2em;
 }
 
 #revImg {
@@ -23,7 +29,7 @@
 }
 
 h2 {
-    margin-top: 15%;
+    margin-top: 2em;
     padding-bottom: 25px;
     color: #636363
 }
@@ -36,4 +42,13 @@ h2 {
 p {
     padding-top: 45px;
     color: red;
+}
+
+.login-text{
+    color: darkgray;  
+}
+
+.btn{
+    background-color: #F26925;
+    border: none;
 }
