@@ -2,7 +2,7 @@
 <div [ngClass]="{'home-wrap':true}">
     <div [ngClass]="{'account-wrap':true}">
         <h2>Account Details: {{accountName.value}}</h2>
-        <h2 id="balance" [style]="balanceStyle">Balance: ${{balance.value}} 
+        <h2 id="balance" [style]="balanceStyle">Balance: {{balance.value| currency}} 
         </h2>
         <br>
           <button class="btn btn-outline-primary btn-lg" type="submit" *ngIf="!createFormOpen" [routerLink]="['/send-money']">Send Money</button>
@@ -32,7 +32,7 @@
           <p>{{accountMessage}}</p>
           <div class="account-card"*ngFor="let txn of transactions">
             <h2>{{txn.description}}</h2>
-            <h1>{{txn.type}}: ${{txn.amount}}</h1>
+            <h1>{{txn.type}}: {{txn.amount | currency}}</h1>
         </div>
     </div>
 </div>
