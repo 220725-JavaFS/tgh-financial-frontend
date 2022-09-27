@@ -20,12 +20,12 @@
       <p>{{accountMessage}}</p>
     </div>
 
-    <div>
-      <button class="btn btn-outline-primary btn-lg" (click)="openCreateForm();">Open Account</button>
-      <span> <button (click)="updateForm();" class="btn btn-outline-secondary btn-lg">Update Account Info</button>
-      </span>
-      <span> <button (click)="transferMoney();" class="btn btn-outline-secondary btn-lg">Transfer Money</button> </span>
+    <div class="uttons">
+      <button class="btn btn-outline-primary btn-lg" (click)="openCreateForm();" style="margin: 5px;"> Open Account</button>
+      <span> <button (click)="updateForm();" class="btn btn-outline-primary btn-lg" style="margin: 5px;">Update Account Info</button></span>
+      <span> <button (click)="transferMoney();" class="btn btn-outline-primary btn-lg" style="margin: 5px;">Transfer Money</button> </span>
     </div>
+
     <form class="input-form" *ngIf="createFormOpen" id="updateForm" #updateForm="ngForm">
       <div class="input-group mb-3">
         <input type="text" class="form-control" [formControl]="accountName" placeholder="Account Name" id="basic-name"

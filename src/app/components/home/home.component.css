@@ -14,12 +14,14 @@
 .account-wrap {
     position: relative;
     width: 80%;
-    height: auto;
+    height: 50em;
     box-shadow: 0 15px 25px #000;
     text-align: center;
     padding-bottom: 10%;
     padding-top: 3%;
     margin-top: 3%;
+    border-radius: 2em;
+    overflow-y: scroll;
 }
 
 h2 {
@@ -37,10 +39,18 @@ h1 {
     height: auto;
     margin-right: auto;
     margin-left: auto;
-    border-style: inset;
-    border-width: thick;
+    border-style: solid;
+    border-width: thin;
     margin-bottom: 25px;
     text-align: left;
+    padding: 15px;
+    border-radius: 2em;
+    border-color: #636363;
+    box-shadow: 0 5px 20px #000;
+   
+}
+
+.uttons{
     padding: 10px;
 }
 

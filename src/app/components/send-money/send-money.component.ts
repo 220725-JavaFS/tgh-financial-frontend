@@ -187,11 +187,11 @@ export class SendMoneyComponent implements OnInit {
 
         if(num < 0) {
           this.balanceStyle = {
-            color: '#ff0000'
+            color: 'Crimson'
           }
         } else {
           this.balanceStyle = {
-            color: '#5dff5d'
+            color: 'SeaGreen'
           }
         }
 

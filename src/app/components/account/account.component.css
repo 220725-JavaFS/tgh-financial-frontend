@@ -16,6 +16,7 @@
     padding-top: 3%;
     margin-top: 3%;
     overflow-y: scroll;
+    border-radius: 2em;
 }
 
 h2 {
@@ -39,6 +40,7 @@ h1 {
     text-align: left;
     padding: 10px;
     transition: 0.4s ease-out;
+    border-radius: 2em;
 }
 
 .account-card:hover {
@@ -64,4 +66,5 @@ h4 {
 #balance {
     margin-bottom: 30px;
     font-size: 4em;
+    text-shadow: 1px 1px #000;
 }
