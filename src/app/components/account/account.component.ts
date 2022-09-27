@@ -49,6 +49,16 @@ export class AccountComponent implements OnInit {
   }
 
   addTransaction(amount: number, description: string, type: string) {
+    // made sure that the amount has to be greater than 0 and
+    //
+    if(amount <= 0) {
+      this.accountMessage = 'Amount has to be greater than 0';
+      return;
+    }
+    // made sure that the amount would be at most 2 digits after the decimal point
+    amount = Number(amount.toFixed(2));
+    
+
     const txn = new Transaction(0, amount, description, type);
     this.accountService.createTransaction(this.accountId, txn).subscribe({
       next: () => {
@@ -100,7 +110,8 @@ export class AccountComponent implements OnInit {
         this.accountMessage = "No account was found, please create one!"
       },
       complete: () => {
-        this.accountMessage = "Account was successfully retrieved from the database.";
+        // changed to this to be more user friendly
+        this.accountMessage = "Account was successfully updated";
         const num = this.userAccount.balance;
         this.userAccount.balance = +num.toFixed(2);
 
